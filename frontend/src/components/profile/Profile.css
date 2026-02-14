@@ -1,0 +1,1111 @@
+/* src/components/profile/Profile.css */
+
+/* Стили для заголовка профиля */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.back-btn {
+    background: #95a5a6;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+    min-height: 44px; /* Для удобства на мобильных */
+}
+
+.back-btn:hover {
+    background: #7f8c8d;
+}
+
+/* Стили для табов профиля */
+.profile-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.profile-tabs .tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: none;
+    color: #7f8c8d;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    min-height: 44px;
+}
+
+.profile-tabs .tab-btn:hover {
+    background: #f8f9fa;
+    color: #3498db;
+}
+
+.profile-tabs .tab-btn.active {
+    color: #3498db;
+    border-bottom: 3px solid #3498db;
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+/* Основной контент профиля */
+.profile-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* Стили для форм */
+.user-info-summary,
+.password-info {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.user-info-summary h3,
+.password-info h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.user-info-summary p,
+.password-info p {
+    margin: 0.5rem 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+.password-hint {
+    color: #e67e22 !important;
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.profile-form,
+.password-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    flex-wrap: wrap;
+}
+
+.success-message {
+    background: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #155724;
+}
+
+/* Стили для секции безопасности */
+.security-form {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+.security-info {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.security-info h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.security-info p {
+    margin: 0.5rem 0;
+    color: #5a6268;
+    line-height: 1.5;
+}
+
+.security-tips {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.security-tips h4 {
+    margin-top: 0;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.security-tips ul {
+    padding-left: 1.5rem;
+    margin: 0;
+}
+
+.security-tips li {
+    margin-bottom: 0.5rem;
+    color: #5a6268;
+    line-height: 1.5;
+}
+
+/* Стили для компонента 2FA */
+.two-factor-settings {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+}
+
+.section-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.section-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.25rem;
+}
+
+.two-factor-status {
+    margin-bottom: 1.5rem;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-dot.enabled {
+    background: #2ecc71;
+}
+
+.status-dot.disabled {
+    background: #e74c3c;
+}
+
+.status-text {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.status-label {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.status-label.enabled {
+    background: #d5f4e6;
+    color: #27ae60;
+}
+
+.status-label.disabled {
+    background: #fadbd8;
+    color: #c0392b;
+}
+
+.two-factor-description {
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #eaeaea;
+}
+
+.two-factor-description p {
+    margin: 0.5rem 0;
+    line-height: 1.5;
+    color: #5a6268;
+}
+
+.two-factor-description ul {
+    padding-left: 1.5rem;
+    margin: 1rem 0 0 0;
+}
+
+.two-factor-description li {
+    margin-bottom: 0.5rem;
+    color: #5a6268;
+    line-height: 1.5;
+}
+
+.two-factor-actions {
+    margin-top: 1.5rem;
+}
+
+.two-factor-actions .cta-button {
+    padding: 0.75rem 2rem;
+    min-height: 44px;
+}
+
+.two-factor-actions .secondary-button.danger {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    min-height: 44px;
+}
+
+.two-factor-actions .secondary-button.danger:hover {
+    background: #c0392b;
+}
+
+/* Стили для верификации */
+.verification-step {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 2px solid #eaeaea;
+}
+
+.verification-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.verification-header h4 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.verification-info {
+    color: #5a6268;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.timer-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.timer-label {
+    color: #5a6268;
+}
+
+.timer {
+    color: #3498db;
+    font-size: 1.2rem;
+    font-family: monospace;
+}
+
+.timer.warning {
+    color: #e74c3c;
+    animation: pulse 1.5s infinite;
+}
+
+.verification-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.code-input {
+    font-size: 1.2rem !important;
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 600;
+    font-family: monospace;
+    height: 50px;
+    min-height: 44px;
+}
+
+.verification-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.action-buttons .cta-button {
+    flex: 2;
+    min-width: 200px;
+    min-height: 44px;
+}
+
+.action-buttons .secondary-button {
+    flex: 1;
+    min-width: 150px;
+    min-height: 44px;
+}
+
+.text-button {
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0.5rem;
+    text-align: center;
+    transition: color 0.3s;
+    min-height: 44px;
+}
+
+.text-button:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.text-button:disabled {
+    color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.timer-expired {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #ffeaa7;
+    border-radius: 6px;
+    border-left: 4px solid #f39c12;
+}
+
+.expired-alert {
+    text-align: center;
+}
+
+.expired-alert p {
+    margin: 0.5rem 0;
+    color: #e74c3c;
+    line-height: 1.5;
+}
+
+/* Стили для удаления аккаунта */
+.danger-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.danger-warning {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #fff8e1;
+    border: 2px solid #ff9800;
+    border-radius: 8px;
+}
+
+.warning-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ff9800;
+}
+
+.warning-text {
+    color: #d84315;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.delete-preparation {
+    margin: 2rem 0;
+}
+
+.delete-instructions {
+    background: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.delete-instructions h4 {
+    color: #d32f2f;
+    margin-bottom: 1rem;
+}
+
+.delete-instructions ul {
+    padding-left: 1.5rem;
+    margin: 0;
+}
+
+.delete-instructions li {
+    margin-bottom: 0.5rem;
+    color: #5a6268;
+    line-height: 1.5;
+}
+
+.delete-options {
+    margin: 2rem 0;
+}
+
+.checkbox-group {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.checkbox-group small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.danger-button {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    min-height: 44px;
+    flex: 1;
+}
+
+.danger-button:hover {
+    background: linear-gradient(135deg, #b71c1c, #8b0000);
+}
+
+.delete-confirmation-form {
+    margin-top: 2rem;
+}
+
+.final-warning {
+    background: #ffebee;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffcdd2;
+    margin: 2rem 0;
+}
+
+.final-warning h4 {
+    color: #d32f2f;
+    margin-bottom: 1rem;
+}
+
+.final-warning ul {
+    padding-left: 1.5rem;
+    margin: 0;
+}
+
+.final-warning li {
+    margin-bottom: 0.5rem;
+    color: #5a6268;
+    line-height: 1.5;
+}
+
+.delete-final-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.delete-final-actions button:first-child {
+    flex: 2;
+    min-width: 200px;
+}
+
+.delete-final-actions button:last-child {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* Адаптивность - Планшеты (768px и меньше) */
+/* Медиа-запросы для профиля */
+
+/* Планшеты в портретной ориентации (768px и меньше) */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        padding: 0;
+        margin-bottom: 1.5rem;
+        border-bottom: none;
+    }
+    
+    .profile-header h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 0;
+        order: 1;
+    }
+    
+    .back-btn {
+        order: 2;
+        width: 100%;
+        max-width: 200px;
+        align-self: center;
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+    
+    .profile-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0;
+        margin-bottom: 1.5rem;
+        gap: 0;
+        border-bottom: 2px solid #eaeaea;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .profile-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .profile-tabs .tab-btn {
+        flex: 0 0 auto;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 0;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        white-space: nowrap;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .profile-tabs .tab-btn span:first-child {
+        font-size: 1.1rem;
+        margin-right: 0.25rem;
+    }
+    
+    .profile-tabs .tab-btn.active {
+        border-bottom-color: #3498db;
+        background: linear-gradient(to bottom, rgba(52, 152, 219, 0.1), transparent);
+    }
+    
+    .profile-content {
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .user-info-summary,
+    .password-info,
+    .security-info {
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+    }
+    
+    .user-info-summary h3,
+    .password-info h3,
+    .security-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .user-info-summary p,
+    .password-info p {
+        font-size: 0.9rem;
+        margin: 0.4rem 0;
+    }
+    
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem !important;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-group label {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        display: block;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        background: #f8f9fa;
+        transition: all 0.3s;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #3498db;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid #eee;
+    }
+    
+    .form-actions button {
+        width: 100%;
+        padding: 0.85rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+    
+    .success-message,
+    .error-message {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+    }
+    
+    /* 2FA адаптивность */
+    .two-factor-settings {
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .section-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .status-indicator {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .status-text {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .two-factor-description {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .two-factor-description ul {
+        padding-left: 1rem;
+    }
+    
+    .two-factor-description li {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .two-factor-actions .cta-button,
+    .two-factor-actions .secondary-button.danger {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Верификация */
+    .verification-step {
+        padding: 1.25rem;
+    }
+    
+    .verification-header h4 {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    
+    .verification-info {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    
+    .timer-display {
+        flex-direction: column;
+        gap: 0.25rem;
+        text-align: center;
+        margin-top: 1rem;
+    }
+    
+    .code-input {
+        font-size: 1.5rem !important;
+        height: 56px;
+        letter-spacing: 2px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .action-buttons button {
+        width: 100%;
+    }
+    
+    .security-tips {
+        padding: 1.25rem;
+        margin-top: 1.5rem;
+    }
+    
+    .security-tips h4 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .security-tips ul {
+        padding-left: 1rem;
+    }
+    
+    .security-tips li {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+}
+
+/* Мобильные телефоны (480px и меньше) */
+@media (max-width: 480px) {
+    .profile-header h1 {
+        font-size: 1.35rem;
+    }
+    
+    .profile-tabs .tab-btn {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    .profile-tabs .tab-btn span:first-child {
+        font-size: 1rem;
+        margin-right: 0.2rem;
+    }
+    
+    .profile-content {
+        padding: 1.25rem;
+        border-radius: 10px;
+    }
+    
+    .user-info-summary,
+    .password-info,
+    .security-info {
+        padding: 1rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 0.7rem;
+        font-size: 0.95rem;
+    }
+    
+    .form-actions button {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+    
+    /* Компактные табы на маленьких экранах */
+    .profile-tabs {
+        margin-bottom: 1.25rem;
+    }
+    
+    .profile-tabs .tab-btn {
+        min-width: auto;
+        padding: 0.6rem 0.7rem;
+    }
+    
+    /* Скрываем иконки на очень маленьких экранах, оставляем только текст */
+    @media (max-width: 380px) {
+        .profile-tabs .tab-btn span:first-child {
+            display: none;
+        }
+        
+        .profile-tabs .tab-btn {
+            font-size: 0.8rem;
+            padding: 0.6rem;
+        }
+    }
+    
+    /* Улучшения для 2FA */
+    .two-factor-settings {
+        padding: 1rem;
+    }
+    
+    .verification-step {
+        padding: 1rem;
+    }
+    
+    .code-input {
+        font-size: 1.4rem !important;
+        height: 50px;
+        letter-spacing: 1px;
+    }
+    
+    .timer-display {
+        font-size: 0.9rem;
+    }
+    
+    .security-tips {
+        padding: 1rem;
+    }
+    
+    .security-tips li {
+        font-size: 0.85rem;
+    }
+}
+
+/* Очень маленькие экраны (360px и меньше) */
+@media (max-width: 360px) {
+    .profile-header h1 {
+        font-size: 1.25rem;
+    }
+    
+    .back-btn {
+        max-width: 100%;
+        padding: 0.65rem;
+        font-size: 0.9rem;
+    }
+    
+    .profile-content {
+        padding: 1rem;
+        margin: 0 -0.5rem;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
+    
+    .profile-tabs .tab-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.6rem;
+        min-height: 40px;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+    
+    .user-info-summary p,
+    .password-info p {
+        font-size: 0.85rem;
+    }
+    
+    /* Ультра-компактный режим для табов */
+    @media (max-width: 320px) {
+        .profile-tabs {
+            justify-content: flex-start;
+        }
+        
+        .profile-tabs .tab-btn {
+            font-size: 0.7rem;
+            padding: 0.5rem;
+        }
+        
+        .profile-header h1 {
+            font-size: 1.1rem;
+        }
+    }
+    
+    /* Минимальные размеры для удобного тапа */
+    .profile-tabs .tab-btn,
+    .form-actions button,
+    .two-factor-actions button,
+    .action-buttons button {
+        min-height: 44px;
+    }
+}
+
+/* Горизонтальная ориентация на мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+    .profile-header {
+        flex-direction: row;
+        align-items: center;
+        padding: 0.75rem 0;
+        margin-bottom: 1rem;
+    }
+    
+    .profile-header h1 {
+        flex: 1;
+        text-align: left;
+        font-size: 1.3rem;
+    }
+    
+    .back-btn {
+        width: auto;
+        max-width: none;
+        margin-top: 0;
+        padding: 0.5rem 1rem;
+    }
+    
+    .profile-tabs {
+        margin-bottom: 1rem;
+    }
+    
+    .profile-content {
+        max-height: calc(100vh - 250px);
+        overflow-y: auto;
+        padding: 1.25rem;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem !important;
+    }
+    
+    .two-factor-settings {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+}
+
+/* Для высоких экранов (iPhone 14 Pro Max и подобные) */
+@media (min-height: 700px) and (max-width: 768px) {
+    .profile-content {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+}
+
+/* Фиксы для iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    .profile-content {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .form-group input,
+    .form-group select {
+        font-size: 16px !important; /* Предотвращает зум при фокусе */
+    }
+    
+    .profile-tabs {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+}
+
+
+/* Анимации для лучшего UX */
+@media (max-width: 768px) {
+    .profile-tabs .tab-btn,
+    .form-actions button,
+    .two-factor-actions button {
+        transition: all 0.2s ease;
+    }
+    
+    .profile-tabs .tab-btn:active,
+    .form-actions button:active,
+    .two-factor-actions button:active {
+        transform: scale(0.98);
+    }
+}

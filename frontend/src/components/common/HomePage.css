@@ -1,0 +1,454 @@
+.home-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page h1 {
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+}
+
+.user-welcome {
+    margin-top: 2rem;
+}
+
+.user-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-card h2 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.edit-profile-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.edit-profile-btn:hover {
+    background: #2980b9;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: stretch; /* Важно: выравнивает высоту всех элементов */
+}
+
+.feature-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Занимает всю доступную высоту */
+    min-height: 220px; /* Минимальная высота для всех карточек */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    min-height: 3rem; /* Фиксированная высота для заголовка */
+    display: flex;
+    align-items: center;
+    
+}
+
+.feature-card p {
+    color: #7f8c8d;
+    margin: 0.5rem 0;
+    line-height: 1.5;
+    flex-grow: 1; /* Занимает всё доступное пространство */
+    min-height: 4.5rem; /* Минимальная высота для описания (примерно 3 строки) */
+}
+
+.feature-btn {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    transition: background 0.3s;
+    margin-top: auto; /* Прижимает кнопку к низу карточки */
+}
+
+.feature-btn:hover {
+    background: #27ae60;
+}
+
+.guest-welcome {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.guest-welcome p {
+    font-size: 1.2rem;
+    color: #5a6268;
+    margin-bottom: 3rem;
+}
+
+.auth-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center; /* Важно для выравнивания по высоте */
+    margin-top: 3rem;
+}
+
+.cta-button,
+.secondary-button {
+    min-height: 54px; /* Одинаковая высота для обеих кнопок */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta-button {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.cta-button:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.secondary-button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+/* Стили для гостевых карточек */
+.guest-welcome .features {
+    margin-top: 2rem;
+}
+
+.guest-welcome .feature-card {
+    min-height: 180px; /* Чуть меньше для гостевых карточек */
+}
+
+.guest-welcome .feature-card h3 {
+    min-height: 2.5rem;
+}
+
+.guest-welcome .feature-card p {
+    min-height: 3.5rem;
+}
+
+/* Для карточек без кнопок */
+.guest-welcome .feature-card:has(button) {
+    min-height: 220px; /* Если есть кнопка - высота больше */
+}
+
+.guest-welcome .feature-card:not(:has(button)) p {
+    min-height: 5.5rem; /* Больше места для текста если нет кнопки */
+}
+
+/* Медиа-запросы для главной страницы */
+
+/* Планшеты (до 1024px) */
+@media (max-width: 1024px) {
+    .home-page {
+        padding: 1.5rem;
+    }
+    
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .feature-card {
+        min-height: 200px;
+    }
+}
+
+/* Планшеты (до 768px) */
+@media (max-width: 768px) {
+    .home-page {
+        padding: 1rem;
+    }
+    
+    .home-page h1 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    
+    .user-card {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        max-width: 500px; /* Ограничиваем ширину для центрирования */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .feature-card {
+        width: 100%; /* Одинаковая ширина для всех карточек */
+        min-height: 180px;
+        padding: 1.25rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.1rem;
+        min-height: 2rem;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .feature-card p {
+        text-align: center;
+        min-height: 3.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .feature-btn {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+    
+    .guest-welcome p {
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 0 1rem;
+    }
+    
+    .auth-actions {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 300px;
+        margin: 2rem auto 0;
+    }
+    
+    .cta-button,
+    .secondary-button {
+        width: 100%;
+        min-height: 50px;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+/* Мобильные телефоны (до 480px) */
+@media (max-width: 480px) {
+    .home-page {
+        padding: 0.75rem;
+    }
+    
+    .home-page h1 {
+        font-size: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .user-card h2 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .edit-profile-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .features {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    .feature-card {
+        min-height: 170px;
+        padding: 1rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1rem;
+        min-height: 1.8rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.9rem;
+        min-height: 3rem;
+        line-height: 1.4;
+    }
+    
+    .guest-welcome p {
+        font-size: 1rem;
+    }
+    
+    .auth-actions {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+}
+
+/* Очень маленькие экраны (до 360px) */
+@media (max-width: 360px) {
+    .home-page h1 {
+        font-size: 1.3rem;
+    }
+    
+    .user-card h2 {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card {
+        min-height: 160px;
+        padding: 0.75rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 0.95rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Для горизонтальной ориентации на мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+    }
+    
+    .feature-card {
+        min-height: 200px;
+    }
+    
+    .auth-actions {
+        flex-direction: row;
+        max-width: 500px;
+    }
+    
+    .cta-button,
+    .secondary-button {
+        width: auto;
+        flex: 1;
+    }
+}
+
+/* Центрирование и улучшения для сенсорных экранов */
+@media (max-width: 768px) {
+    /* Центрирование всего контента */
+    .user-welcome,
+    .guest-welcome {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* Выравнивание текста по центру для гостевых карточек */
+    .guest-welcome .feature-card h3,
+    .guest-welcome .feature-card p {
+        text-align: center;
+    }
+    
+    /* Увеличенные зоны касания */
+    button {
+        min-height: 44px;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    }
+    
+    /* Улучшенные отступы для контента */
+    .page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Плавные анимации для мобильных */
+@media (max-width: 768px) {
+    .features {
+        animation: fadeInUp 0.5s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Фикс для iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 768px) {
+        .feature-card {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        
+        button {
+            cursor: pointer;
+        }
+    }
+}
+
