@@ -45,7 +45,6 @@ const EditProfile = () => {
     }, []);
 
     const fetchProfile = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.AUTH.PROFILE, {
@@ -90,7 +89,6 @@ const EditProfile = () => {
         setError('');
         setSuccess('');
         
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.AUTH.UPDATE_PROFILE, {
@@ -142,7 +140,6 @@ const EditProfile = () => {
             return;
         }
         
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.AUTH.CHANGE_PASSWORD, {

@@ -26,7 +26,6 @@ const WishlistPage: React.FC<WishlistPageProps> = ({ addToCart }) => {
     const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchWishlist();
@@ -80,7 +79,6 @@ const WishlistPage: React.FC<WishlistPageProps> = ({ addToCart }) => {
 };
 
     const handleRemoveFromWishlist = async (productId: number) => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.WISHLIST.BY_PRODUCT_ID(productId), {

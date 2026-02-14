@@ -28,7 +28,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'users' })
     }, []);
 
     const fetchDashboardStats = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const usersResponse = await fetch(API_URLS.USERS.BASE, {

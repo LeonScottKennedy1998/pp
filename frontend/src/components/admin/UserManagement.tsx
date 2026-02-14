@@ -41,7 +41,6 @@ const UserManagement = () => {
     const roles = ['Администратор', 'Товаровед', 'Аналитик', 'Клиент'];
 
     const fetchUsers = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.USERS.BASE, {
@@ -80,7 +79,6 @@ const UserManagement = () => {
 
     const handleAddUser = async (e: React.FormEvent) => {
         e.preventDefault();
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.USERS.BASE, {
@@ -116,7 +114,6 @@ const UserManagement = () => {
         e.preventDefault();
         if (!editingUser) return;
         
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.USERS.BY_ID(editingUser.id), {
@@ -156,7 +153,6 @@ const UserManagement = () => {
     };
 
     const toggleUserStatus = async (userId: number, isActive: boolean) => {
-        const token = localStorage.getItem('token');
         const action = isActive ? 'block' : 'unblock';
         const confirmMessage = isActive 
             ? 'Вы уверены, что хотите заблокировать пользователя?' 
@@ -195,7 +191,6 @@ const UserManagement = () => {
             return;
         }
         
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.USERS.RESET_PASSWORD(selectedUser.id), {

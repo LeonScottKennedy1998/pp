@@ -55,7 +55,6 @@ const ProductManagement = () => {
     });
 
     const fetchProducts = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.PRODUCTS.ALL, {
@@ -84,7 +83,6 @@ const ProductManagement = () => {
     };
 
     const fetchDiscounts = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.DISCOUNTS.BASE, {
@@ -101,7 +99,6 @@ const ProductManagement = () => {
     };
 
     const fetchRules = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.DISCOUNTS.RULES, {
@@ -148,7 +145,6 @@ const handleUpdateRule = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingRule) return;
     
-    const token = localStorage.getItem('token');
     
     try {
         const ruleId = String(editingRule.rule_id);
@@ -232,7 +228,6 @@ const handleUpdateRule = async (e: React.FormEvent) => {
 
 const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
     
     try {
         const response = await fetch(API_URLS.PRODUCTS.BASE, {
@@ -274,7 +269,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingProduct) return;
     
-    const token = localStorage.getItem('token');
     
     try {
         const response = await fetch(API_URLS.PRODUCTS.UPDATE(editingProduct.id), {
@@ -317,7 +311,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedProductForDiscount) return;
         
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(
@@ -353,7 +346,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
     const handleRemoveRuleDiscounts = async (ruleId: number) => {
     if (!window.confirm('Удалить все скидки, созданные этим правилом?')) return;
     
-    const token = localStorage.getItem('token');
     
     try {
         const response = await fetch(
@@ -379,7 +371,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
     const handleRemoveDiscount = async (productId: number) => {
         if (!window.confirm('Вы уверены, что хотите удалить скидку?')) return;
         
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(
@@ -404,7 +395,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
 
     const handleCreateRule = async (e: React.FormEvent) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
     
     try {
         const ruleData: any = {
@@ -459,7 +449,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
         if (!window.confirm('Применить правило? Существующие скидки могут быть перезаписаны.')) return;
         
         setApplyingRule(ruleId);
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.DISCOUNTS.APPLY_RULE(ruleId), {
@@ -485,7 +474,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
     const handlePreviewRule = async (ruleId: number) => {
     console.log('🔄 Нажата кнопка предпросмотра для ruleId:', ruleId);
     
-    const token = localStorage.getItem('token');
     
     try {
         const response = await fetch(API_URLS.DISCOUNTS.PREVIEW_RULE(ruleId), {
@@ -511,7 +499,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
 };
 
     const handleToggleRule = async (ruleId: number, currentStatus: boolean) => {
-        const token = localStorage.getItem('token');
         const newStatus = !currentStatus;
         
         try {
@@ -534,7 +521,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
     };
 
     const toggleProductStatus = async (productId: number, isActive: boolean) => {
-        const token = localStorage.getItem('token');
         const action = isActive ? 'deactivate' : 'activate';
         const confirmMessage = isActive 
             ? 'Вы уверены, что хотите снять товар с продажи?' 

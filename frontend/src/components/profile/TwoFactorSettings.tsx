@@ -32,7 +32,6 @@ const TwoFactorSettings: React.FC = () => {
     };
 
     const checkTwoFactorStatus = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.AUTH.TWO_FACTOR_STATUS, {
@@ -52,9 +51,7 @@ const TwoFactorSettings: React.FC = () => {
         setLoading(true);
         setError('');
         setSuccess('');
-        
-        const token = localStorage.getItem('token');
-        
+                
         try {
             const response = await fetch(API_URLS.AUTH.TWO_FACTOR_ENABLE, {
                 method: 'POST',
@@ -81,9 +78,7 @@ const TwoFactorSettings: React.FC = () => {
     const handleVerifyCode = async () => {
         setLoading(true);
         setError('');
-        
-        const token = localStorage.getItem('token');
-        
+                
         try {
             const response = await fetch(API_URLS.AUTH.TWO_FACTOR_VERIFY, {
                 method: 'POST',
@@ -116,9 +111,7 @@ const TwoFactorSettings: React.FC = () => {
         
         setLoading(true);
         setError('');
-        
-        const token = localStorage.getItem('token');
-        
+                
         try {
             const response = await fetch(API_URLS.AUTH.TWO_FACTOR_DISABLE, {
                 method: 'POST',
@@ -143,9 +136,7 @@ const TwoFactorSettings: React.FC = () => {
 
     const handleResendCode = async () => {
         setLoading(true);
-        
-        const token = localStorage.getItem('token');
-        
+                
         try {
             const response = await fetch(API_URLS.AUTH.TWO_FACTOR_RESEND_CODE, {
                 method: 'POST',

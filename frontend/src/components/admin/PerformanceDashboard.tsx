@@ -19,7 +19,6 @@ const PerformanceDashboard = () => {
     }, [autoRefresh]);
 
     const fetchDashboardStats = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.PERFORMANCE.DASHBOARD_STATS, {
@@ -38,7 +37,6 @@ const PerformanceDashboard = () => {
     };
 
     const fetchRealTimeMetrics = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.PERFORMANCE.REALTIME, {

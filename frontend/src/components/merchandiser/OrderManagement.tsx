@@ -37,7 +37,6 @@ const OrderManagement = () => {
     const statusOptions = ['Все', 'В обработке', 'Подтвержден', 'Отменен'];
 
     const fetchOrders = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.ORDERS.ALL_ORDERS, {
@@ -56,7 +55,6 @@ const OrderManagement = () => {
     };
 
     const fetchOrderDetails = async (orderId: number) => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.ORDERS.ADMIN_ORDER_DETAILS(orderId), {
@@ -73,7 +71,6 @@ const OrderManagement = () => {
     };
 
     const updateOrderStatus = async (orderId: number, newStatus: string) => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.ORDERS.UPDATE_STATUS(orderId), {

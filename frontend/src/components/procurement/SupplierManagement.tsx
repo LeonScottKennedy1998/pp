@@ -34,7 +34,6 @@ const SupplierManagement = () => {
     });
 
     const fetchSuppliers = async () => {
-        const token = localStorage.getItem('token');
         try {
             const response = await fetch(API_URLS.PROCUREMENT.SUPPLIERS, {
                 headers: getAuthHeaders()
@@ -62,7 +61,6 @@ const SupplierManagement = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const token = localStorage.getItem('token');
         
         try {
             const url = editingSupplier 
@@ -113,7 +111,6 @@ const SupplierManagement = () => {
     };
 
     const toggleStatus = async (supplierId: number, currentStatus: boolean) => {
-        const token = localStorage.getItem('token');
         const newStatus = !currentStatus;
         
         if (!window.confirm(`Вы уверены, что хотите ${newStatus ? 'активировать' : 'деактивировать'} поставщика?`)) return;

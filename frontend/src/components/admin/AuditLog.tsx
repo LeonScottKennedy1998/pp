@@ -55,7 +55,6 @@ const AuditLog = () => {
     const [selectedLog, setSelectedLog] = useState<AuditLog | null>(null);
 
     const fetchAuditLog = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const params = new URLSearchParams();
@@ -83,7 +82,6 @@ const AuditLog = () => {
     };
 
     const fetchAuditStats = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.AUDIT.STATS, {
@@ -98,7 +96,6 @@ const AuditLog = () => {
     };
 
     const fetchActions = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.AUDIT.ACTIONS, {
@@ -113,7 +110,6 @@ const AuditLog = () => {
     };
 
     const fetchTables = async () => {
-        const token = localStorage.getItem('token');
         
         try {
             const response = await fetch(API_URLS.AUDIT.TABLES, {

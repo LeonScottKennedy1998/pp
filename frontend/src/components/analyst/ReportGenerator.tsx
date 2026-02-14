@@ -44,7 +44,6 @@ const ReportGenerator = () => {
             endDate: formattedEndDate
         });
 
-        const token = localStorage.getItem('token');
         setLoading(true);
 
         try {

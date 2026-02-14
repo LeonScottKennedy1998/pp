@@ -31,7 +31,6 @@ const BackupManagement = () => {
     });
 
     const fetchBackups = async () => {
-        const token = localStorage.getItem('token');
 
         try {
             const [backupsResponse, statsResponse] = await Promise.all([
