@@ -1,4 +1,4 @@
-/* src/components/auth/Auth.css - ИСПРАВЛЕННАЯ ВЕРСИЯ */
+/* src/components/auth/Auth.css - ИСПРАВЛЕННАЯ ВЕРСИЯ С ПОВЫШЕННОЙ СПЕЦИФИЧНОСТЬЮ */
 
 /* Страница аутентификации */
 .auth-page {
@@ -10,7 +10,7 @@
 }
 
 /* Контейнер формы */
-.auth-container {
+.auth-page .auth-container {
     width: 100%;
     max-width: 500px;
     background: white;
@@ -20,82 +20,88 @@
 }
 
 /* Шапка с градиентом */
-.auth-header {
+.auth-page .auth-header {
     padding: 2rem;
     background: linear-gradient(135deg, #2c3e50, #34495e);
     color: white;
     text-align: center;
 }
 
-.auth-header h1 {
+.auth-page .auth-header h1 {
     margin: 0 0 0.5rem 0;
     font-size: 1.8rem;
 }
 
-.auth-header p {
+.auth-page .auth-header p {
     margin: 0;
     opacity: 0.9;
     font-size: 0.95rem;
 }
 
 /* Тело формы */
-.auth-form {
+.auth-page .auth-form {
     padding: 2rem;
 }
 
 /* Сообщения */
-.alert {
+.auth-page .alert {
     padding: 1rem;
     border-radius: 6px;
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
 }
 
-.alert-error {
+.auth-page .alert-error {
     background-color: #fde8e8;
     border: 1px solid #f5c6cb;
     color: #721c24;
 }
 
-.alert-success {
+.auth-page .alert-success {
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
     color: #155724;
 }
 
-/* Группы формы */
-.form-group {
+/* Группы формы - ПОВЫШЕННАЯ СПЕЦИФИЧНОСТЬ */
+.auth-page .auth-form .form-group {
     margin-bottom: 1.5rem;
+    width: 100%;
 }
 
-.form-group label {
+.auth-page .auth-form .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: #2c3e50;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
+/* Перебиваем все сторонние стили для input */
+.auth-page .auth-form .form-group input {
+    width: 100% !important;
+    padding: 0.75rem !important;
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+    font-size: 1rem !important;
+    transition: border-color 0.3s, box-shadow 0.3s !important;
+    box-sizing: border-box !important;
+    background: white !important;
+    height: auto !important;
+    line-height: normal !important;
+    outline: none !important;
 }
 
-.form-group input:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+.auth-page .auth-form .form-group input:focus {
+    border-color: #3498db !important;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1) !important;
 }
 
-.form-group input:disabled {
-    background: #f8f9fa;
-    cursor: not-allowed;
+.auth-page .auth-form .form-group input:disabled {
+    background: #f8f9fa !important;
+    cursor: not-allowed !important;
 }
 
-.form-group small {
+.auth-page .auth-form .form-group small {
     display: block;
     margin-top: 0.25rem;
     color: #7f8c8d;
@@ -103,16 +109,20 @@
 }
 
 /* Две колонки для некоторых форм */
-.form-row {
+.auth-page .auth-form .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-
+.auth-page .auth-form .form-row .form-group {
+    margin-bottom: 0;
+    min-width: 0;
+}
 
 /* Кнопки */
-.btn {
+.auth-page .btn {
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 6px;
@@ -122,56 +132,59 @@
     transition: all 0.3s ease;
     width: 100%;
     margin-top: 1rem;
-}
-
-.btn-primary {
+    box-sizing: border-box;
     background: #3498db;
     color: white;
 }
 
-.btn-primary:hover:not(:disabled) {
-    background: #2980b9;
+.auth-page .btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.auth-page .btn-primary:hover:not(:disabled) {
+    background: #2980b9 !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
 }
 
-.btn-primary:disabled {
-    background: #bdc3c7;
+.auth-page .btn-primary:disabled {
+    background: #bdc3c7 !important;
     cursor: not-allowed;
 }
 
-/* Стили для 2FA - ДОБАВЛЕНО */
-.two-factor-container {
+/* Стили для 2FA */
+.auth-page .two-factor-container {
     margin-top: 0;
 }
 
-.two-factor-header {
+.auth-page .two-factor-header {
     text-align: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #eee;
 }
 
-.two-factor-header h2 {
+.auth-page .two-factor-header h2 {
     margin: 0 0 0.5rem 0;
     color: #2c3e50;
     font-size: 1.5rem;
 }
 
-.two-factor-subtitle {
+.auth-page .two-factor-subtitle {
     color: #5a6268;
     margin: 0.5rem 0;
     font-size: 0.95rem;
 }
 
-.timer {
+.auth-page .timer {
     font-size: 1rem;
     font-weight: 600;
     color: #2c3e50;
     margin: 0.5rem 0;
 }
 
-.timer-warning {
+.auth-page .timer-warning {
     color: #e74c3c;
     animation: pulse 1.5s infinite;
 }
@@ -182,28 +195,28 @@
     100% { opacity: 1; }
 }
 
-.code-input {
+.auth-page .code-input {
     font-size: 1.2rem !important;
     text-align: center;
     letter-spacing: 3px;
     font-weight: 600;
 }
 
-.two-factor-actions {
+.auth-page .two-factor-actions {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
 }
 
-.two-factor-actions .btn-primary {
+.auth-page .two-factor-actions .btn-primary {
     flex: 2;
 }
 
-.two-factor-actions .secondary-button {
+.auth-page .two-factor-actions .secondary-button {
     flex: 1;
 }
 
-.secondary-button {
+.auth-page .secondary-button {
     background: #95a5a6;
     color: white;
     border: none;
@@ -215,17 +228,17 @@
     transition: all 0.3s;
 }
 
-.secondary-button:hover:not(:disabled) {
+.auth-page .secondary-button:hover:not(:disabled) {
     background: #7f8c8d;
     transform: translateY(-1px);
 }
 
-.secondary-button:disabled {
+.auth-page .secondary-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.timer-expired {
+.auth-page .timer-expired {
     background: #ffeaa7;
     padding: 0.75rem;
     border-radius: 6px;
@@ -236,7 +249,7 @@
     font-size: 0.9rem;
 }
 
-.back-link {
+.auth-page .back-link {
     background: none;
     border: none;
     color: #3498db;
@@ -250,19 +263,19 @@
     display: block;
 }
 
-.back-link:hover {
+.auth-page .back-link:hover {
     color: #2980b9;
     text-decoration: underline;
 }
 
-.back-link:disabled {
+.auth-page .back-link:disabled {
     color: #95a5a6;
     cursor: not-allowed;
     text-decoration: none;
 }
 
-/* Стили для соглашения - ИСПРАВЛЕНО */
-.privacy-agreement {
+/* Стили для соглашения */
+.auth-page .privacy-agreement {
     margin: 1.5rem 0;
     padding: 1rem;
     background: #f8f9fa;
@@ -270,9 +283,9 @@
     border: 1px solid #e0e0e0;
 }
 
-.checkbox-label {
+.auth-page .checkbox-label {
     display: flex;
-    align-items: flex-start; /* Исправлено: было center */
+    align-items: flex-start;
     gap: 0.75rem;
     cursor: pointer;
     font-size: 0.95rem;
@@ -281,32 +294,32 @@
     margin: 0;
 }
 
-.privacy-checkbox {
-    margin-top: 0.25rem; /* Возвращаем небольшой отступ сверху */
+.auth-page .privacy-checkbox {
+    margin-top: 0.25rem;
     min-width: 18px;
     min-height: 18px;
     cursor: pointer;
     flex-shrink: 0;
 }
 
-.privacy-text {
+.auth-page .privacy-text {
     flex: 1;
 }
 
-.privacy-link {
+.auth-page .privacy-link {
     color: #3498db;
     text-decoration: underline;
     font-weight: 500;
     transition: color 0.3s;
 }
 
-.privacy-link:hover {
+.auth-page .privacy-link:hover {
     color: #2980b9;
     text-decoration: none;
 }
 
 /* Футер формы */
-.auth-footer {
+.auth-page .auth-footer {
     margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid #eee;
@@ -316,18 +329,18 @@
     gap: 1rem;
 }
 
-.auth-link {
+.auth-page .auth-link {
     color: #3498db;
     text-decoration: none;
     font-size: 0.95rem;
 }
 
-.auth-link:hover {
+.auth-page .auth-link:hover {
     text-decoration: underline;
 }
 
-/* Ссылки под формой (альтернативный вариант) */
-.auth-links {
+/* Ссылки под формой */
+.auth-page .auth-links {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid #eaeaea;
@@ -337,20 +350,20 @@
     text-align: center;
 }
 
-.auth-links a {
+.auth-page .auth-links a {
     color: #3498db;
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.3s;
 }
 
-.auth-links a:hover {
+.auth-page .auth-links a:hover {
     color: #2980b9;
     text-decoration: underline;
 }
 
 /* Дополнительные заметки */
-.auth-note {
+.auth-page .auth-note {
     margin-top: 1.5rem;
     padding: 1rem;
     background: #f8f9fa;
@@ -359,11 +372,11 @@
     color: #6c757d;
 }
 
-.auth-note p {
+.auth-page .auth-note p {
     margin: 0.5rem 0;
 }
 
-.password-rules {
+.auth-page .password-rules {
     margin-top: 1.5rem;
     padding: 1rem;
     background: #f8f9fa;
@@ -371,44 +384,35 @@
     font-size: 0.9rem;
 }
 
-.password-rules ul {
+.auth-page .password-rules ul {
     margin: 0.5rem 0;
     padding-left: 1.2rem;
 }
 
-.password-rules li {
+.auth-page .password-rules li {
     margin: 0.25rem 0;
 }
 
 /* Загрузка */
-.loading {
+.auth-page .loading {
     text-align: center;
     padding: 3rem;
     color: #6c757d;
     font-style: italic;
 }
 
-
-
-/* Специфичные стили для страниц */
-/* Для страницы входа с 2FA */
-.login-page .auth-container {
-    max-width: 500px;
-}
-
-/* Для страницы регистрации */
-.register-page .auth-container {
+/* Специфичные стили для разных страниц */
+.auth-page.register-page .auth-container {
     max-width: 550px;
 }
 
-/* Для страницы восстановления пароля */
-.forgot-password-page .auth-container {
-    max-width: 450px;
+.auth-page.login-page .auth-container {
+    max-width: 500px;
 }
 
-/* src/components/auth/Auth.css - ФИНАЛЬНЫЕ УЛУЧШЕНИЯ */
-
-/* ... остальной CSS остается прежним ... */
+.auth-page.forgot-password-page .auth-container {
+    max-width: 450px;
+}
 
 /* Адаптивность */
 @media (max-width: 768px) {
@@ -417,49 +421,41 @@
         min-height: calc(100vh - 120px);
     }
     
-    .auth-container {
+    .auth-page .auth-container {
         max-width: 100%;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     
-    .auth-header {
+    .auth-page .auth-form .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .auth-page .auth-header {
         padding: 1.5rem;
     }
     
-    .auth-header h1 {
+    .auth-page .auth-header h1 {
         font-size: 1.5rem;
     }
     
-    .auth-header p {
+    .auth-page .auth-header p {
         font-size: 0.9rem;
     }
     
-    .auth-form {
+    .auth-page .auth-form {
         padding: 1.5rem;
     }
     
-    .two-factor-header h2 {
-        font-size: 1.3rem;
-    }
-    
-    .two-factor-subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .code-input {
-        font-size: 1.1rem !important;
-        letter-spacing: 2px;
-    }
-    
-    .btn {
+    .auth-page .btn {
         padding: 0.85rem;
         font-size: 1rem;
         min-height: 48px;
     }
     
-    .form-group input {
-        padding: 0.85rem;
-        font-size: 16px; /* Предотвращает зум на iOS */
+    .auth-page .auth-form .form-group input {
+        padding: 0.85rem !important;
+        font-size: 16px !important;
     }
 }
 
@@ -468,73 +464,36 @@
         padding: 0.75rem;
     }
     
-    .auth-header,
-    .auth-form {
+    .auth-page .auth-header,
+    .auth-page .auth-form {
         padding: 1.25rem;
     }
     
-    .auth-header h1 {
+    .auth-page .auth-header h1 {
         font-size: 1.3rem;
     }
     
-    .form-group {
+    .auth-page .auth-form .form-group {
         margin-bottom: 1.25rem;
     }
     
-    .checkbox-label {
-        font-size: 0.9rem;
-        align-items: flex-start;
-    }
-    
-    .privacy-checkbox {
-        margin-top: 0.2rem;
-    }
-    
-    .two-factor-actions {
+    .auth-page .two-factor-actions {
         flex-direction: column;
     }
     
-    .two-factor-actions .btn-primary,
-    .two-factor-actions .secondary-button {
+    .auth-page .two-factor-actions .btn-primary,
+    .auth-page .two-factor-actions .secondary-button {
         width: 100%;
-    }
-    
-    .timer {
-        font-size: 0.9rem;
-    }
-    
-    .auth-links a {
-        font-size: 0.9rem;
-        padding: 0.5rem;
-    }
-    
-    .auth-note,
-    .password-rules {
-        font-size: 0.85rem;
-        padding: 0.75rem;
     }
 }
 
 @media (max-width: 360px) {
-    .auth-header h1 {
+    .auth-page .auth-header h1 {
         font-size: 1.2rem;
     }
     
-    .form-group input {
-        padding: 0.75rem;
-    }
-    
-    .btn {
-        padding: 0.75rem;
-        font-size: 0.95rem;
-    }
-    
-    .code-input {
-        font-size: 1rem !important;
-    }
-    
-    .privacy-agreement {
-        padding: 0.75rem;
+    .auth-page .auth-form .form-group input {
+        padding: 0.75rem !important;
     }
 }
 
@@ -545,109 +504,18 @@
         align-items: flex-start;
     }
     
-    .auth-container {
+    .auth-page .auth-container {
         max-width: 90%;
         margin-top: 1rem;
     }
     
-    .auth-header {
+    .auth-page .auth-header {
         padding: 1rem 1.5rem;
     }
     
-    .auth-form {
+    .auth-page .auth-form {
         max-height: 70vh;
         overflow-y: auto;
         padding: 1rem 1.5rem;
-    }
-    
-    .form-group {
-        margin-bottom: 1rem;
-    }
-    
-    .two-factor-actions {
-        flex-direction: row;
-    }
-    
-    .two-factor-actions .btn-primary {
-        flex: 2;
-    }
-    
-    .two-factor-actions .secondary-button {
-        flex: 1;
-    }
-}
-
-/* Улучшения для touch-устройств */
-@media (max-width: 768px) {
-    /* Увеличенные зоны касания */
-    .btn,
-    .back-link,
-    .auth-link,
-    .auth-links a,
-    .privacy-checkbox {
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .back-link {
-        padding: 0.75rem;
-    }
-    
-    /* Улучшение визуальной обратной связи */
-    .btn:active,
-    .back-link:active,
-    .auth-link:active {
-        transform: scale(0.98);
-    }
-    
-    /* Убираем outline для мобильных (оставляем focus-visible) */
-    .form-group input:focus {
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-    }
-    
-    /* Анимация появления формы */
-    .auth-container {
-        animation: slideUp 0.3s ease;
-    }
-    
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-}
-
-/* Улучшение доступности для фокуса */
-.auth-link:focus-visible,
-.btn:focus-visible,
-.back-link:focus-visible,
-.privacy-checkbox:focus-visible {
-    outline: 2px solid #3498db;
-    outline-offset: 2px;
-}
-
-/* Поддержка печати */
-@media print {
-    .auth-page {
-        background: white;
-        padding: 0;
-    }
-    
-    .auth-container {
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
-    
-    .btn,
-    .auth-links,
-    .back-link {
-        display: none;
     }
 }

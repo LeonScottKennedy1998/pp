@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './CartPage.css';
-import { API_URL, API_URLS, getAuthHeaders } from '../../config/api';
+import {  API_URLS, getAuthHeaders } from '../../config/api';
 
 interface CartItem {
     productId: number;

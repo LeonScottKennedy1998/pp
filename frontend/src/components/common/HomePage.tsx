@@ -144,12 +144,31 @@ const HomePage: React.FC<HomePageProps> = ({ user, onLogout }) => {
                         </div>
                     </div>
                     
-                    <div className="auth-actions">
-                        <Link to="/register">
-                            <button className="cta-button">Зарегистрироваться</button>
+                    <div className="auth-actions" style={{ 
+                        display: 'flex', 
+                        flexDirection: 'row', 
+                        gap: '16px', 
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: '24px',
+                        flexWrap: 'wrap' /* на мобилках перенесутся */
+                    }}>
+                        <Link to="/register" style={{ flex: '0 1 auto' }}>
+                            <button className="cta-button" style={{
+                                margin: 0,
+                                whiteSpace: 'nowrap'
+                            }}>
+                                Зарегистрироваться
+                            </button>
                         </Link>
-                        <Link to="/login">
-                            <button className="secondary-button">Войти в систему</button>
+                        
+                        <Link to="/login" style={{ flex: '0 1 auto' }}>
+                            <button className="secondary-button" style={{
+                                margin: 0,
+                                whiteSpace: 'nowrap'
+                            }}>
+                                Войти в систему
+                            </button>
                         </Link>
                     </div>
                 </div>

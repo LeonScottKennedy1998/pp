@@ -107,31 +107,14 @@ const RegisterPage: React.FC = () => {
                             />
                         </div>
                         
-                        <div className="form-row">
-                            <div className="form-group">
+                        <div className="form-row" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                            <div className="form-group" style={{ flex: 1 }}>
                                 <label>Пароль *</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="••••••••"
-                                    required
-                                    minLength={6}
-                                />
-                                <small>Минимум 6 символов</small>
+                                <input type="password" name="password" style={{ width: '100%', height: '48px' }} />
                             </div>
-                            
-                            <div className="form-group">
+                            <div className="form-group" style={{ flex: 1 }}>
                                 <label>Подтвердите пароль *</label>
-                                <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                    placeholder="••••••••"
-                                    required
-                                />
+                                <input type="password" name="confirmPassword" style={{ width: '100%', height: '48px' }} />
                             </div>
                         </div>
                         
