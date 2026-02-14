@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const discountController = require('../controllers/discountController');
+const discountController = require('../controllers/DiscountController');
 const { authMiddleware, roleMiddleware } = require('../middleware/auth');
 
 router.post('/product/:productId', 

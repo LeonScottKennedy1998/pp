@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const purchaseController = require('../controllers/purchaseController');
+const purchaseController = require('../controllers/PurchaseController');
 const { authMiddleware, roleMiddleware } = require('../middleware/auth');
 
 router.get('/suppliers', authMiddleware, roleMiddleware('Менеджер по закупкам'), purchaseController.getSuppliers);

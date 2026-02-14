@@ -1,43 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const backupController = require('../controllers/backupController');
+const backupController = require('../controllers/BackupController');
 const { authMiddleware, roleMiddleware } = require('../middleware/auth');
 
-router.get('/', 
-    authMiddleware, 
-    roleMiddleware('Администратор'), 
-    backupController.getBackups
-);
+// Все маршруты только для администраторов
+router.use(authMiddleware, roleMiddleware('Администратор'));
 
-router.get('/stats', 
-    authMiddleware, 
-    roleMiddleware('Администратор'), 
-    backupController.getBackupStats
-);
+// Получение списка бэкапов
+router.get('/', backupController.getBackups);
 
-router.post('/sql', 
-    authMiddleware, 
-    roleMiddleware('Администратор'), 
-    backupController.createSqlBackup
-);
+// Получение статистики
+router.get('/stats', backupController.getBackupStats);
 
-router.post('/json', 
-    authMiddleware, 
-    roleMiddleware('Администратор'), 
-    backupController.createJsonBackup
-);
+// Создание бэкапа (теперь только SQL)
+router.post('/', backupController.createBackup);
 
-router.get('/download/:filename', 
-    authMiddleware, 
-    roleMiddleware('Администратор'), 
-    backupController.downloadBackup
-);
+// Восстановление из бэкапа
+router.post('/restore/:filename', backupController.restoreBackup);
 
-router.delete('/:filename', 
-    authMiddleware, 
-    roleMiddleware('Администратор'), 
-    backupController.deleteBackup
-);
+// Скачивание бэкапа
+router.get('/download/:filename', backupController.downloadBackup);
 
+// Удаление бэкапа
+router.delete('/:filename', backupController.deleteBackup);
 
 module.exports = router;

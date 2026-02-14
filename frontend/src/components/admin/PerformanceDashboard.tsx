@@ -1,4 +1,3 @@
-// components/admin/PerformanceDashboard.tsx
 import React, { useState, useEffect } from 'react';
 import './PerformanceDashboard.css';
 import { API_URLS, getAuthHeaders } from '../../config/api';
@@ -163,8 +162,8 @@ const PerformanceDashboard = () => {
             <div className="requests-section">
                 <h2>📊 Статистика запросов (24ч)</h2>
                 <div className="requests-grid">
-                    {stats.stats.map((stat: any) => (
-                        <div key={stat.metric_type} className="stat-card">
+                    {stats.stats.map((stat: any, index: number) => (
+                        <div key={index} className="stat-card">
                             <h3>
                                 {stat.metric_type === 'response_time' && '⏱️ Время ответа'}
                                 {stat.metric_type === 'request_count' && '📨 Количество запросов'}
@@ -172,11 +171,11 @@ const PerformanceDashboard = () => {
                                 {stat.metric_type === 'email_send_time' && '📧 Время отправки email'}
                             </h3>
                             <div className="stat-details">
-                                <p>Всего: {stat.total_count}</p>
-                                <p>Среднее: {stat.avg_value}</p>
-                                <p>Мин: {stat.min_value}</p>
-                                <p>Макс: {stat.max_value}</p>
-                                <p>Уникальных endpoints: {stat.unique_endpoints}</p>
+                                <p data-label="Всего:">Всего: {stat.total_count}</p>
+                                <p data-label="Среднее:">Среднее: {stat.avg_value}</p>
+                                <p data-label="Мин:">Мин: {stat.min_value}</p>
+                                <p data-label="Макс:">Макс: {stat.max_value}</p>
+                                <p data-label="Уникальных endpoints:">Уникальных: {stat.unique_endpoints}</p>
                             </div>
                         </div>
                     ))}
@@ -223,24 +222,26 @@ const PerformanceDashboard = () => {
             {stats.slowRequests && stats.slowRequests.length > 0 && (
                 <div className="slow-requests-section">
                     <h2>🐌 Самые медленные запросы</h2>
-                    <table className="slow-requests-table">
-                        <thead>
-                            <tr>
-                                <th>Endpoint</th>
-                                <th>Время (мс)</th>
-                                <th>Дата</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {stats.slowRequests.map((request: any, index: number) => (
-                                <tr key={index}>
-                                    <td>{request.endpoint || 'Неизвестно'}</td>
-                                    <td className="response-time">{request.response_time_ms} мс</td>
-                                    <td>{new Date(request.created_at).toLocaleString()}</td>
+                    <div className="table-wrapper">
+                        <table className="slow-requests-table">
+                            <thead>
+                                <tr>
+                                    <th>Endpoint</th>
+                                    <th>Время (мс)</th>
+                                    <th>Дата</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {stats.slowRequests.map((request: any, index: number) => (
+                                    <tr key={index}>
+                                        <td>{request.endpoint || 'Неизвестно'}</td>
+                                        <td className="response-time">{request.response_time_ms} мс</td>
+                                        <td>{new Date(request.created_at).toLocaleString()}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
 
@@ -248,24 +249,26 @@ const PerformanceDashboard = () => {
             {stats.popularEndpoints && stats.popularEndpoints.length > 0 && (
                 <div className="popular-endpoints-section">
                     <h2>🔥 Популярные endpoints</h2>
-                    <table className="endpoints-table">
-                        <thead>
-                            <tr>
-                                <th>Endpoint</th>
-                                <th>Количество запросов</th>
-                                <th>Среднее время (мс)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {stats.popularEndpoints.map((endpoint: any, index: number) => (
-                                <tr key={index}>
-                                    <td>{endpoint.endpoint}</td>
-                                    <td>{endpoint.request_count}</td>
-                                    <td>{endpoint.avg_response_time || '—'}</td>
+                    <div className="table-wrapper">
+                        <table className="endpoints-table">
+                            <thead>
+                                <tr>
+                                    <th>Endpoint</th>
+                                    <th>Количество запросов</th>
+                                    <th>Среднее время (мс)</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {stats.popularEndpoints.map((endpoint: any, index: number) => (
+                                    <tr key={index}>
+                                        <td>{endpoint.endpoint}</td>
+                                        <td>{endpoint.request_count}</td>
+                                        <td>{endpoint.avg_response_time || '—'}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>

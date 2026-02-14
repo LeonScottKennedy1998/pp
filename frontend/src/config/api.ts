@@ -89,9 +89,9 @@ export const API_URLS = {
         BASE: `${API_BASE_URL}/backup`,
         STATS: `${API_BASE_URL}/backup/stats`,
         SQL_BACKUP: `${API_BASE_URL}/backup/sql`,
-        JSON_BACKUP: `${API_BASE_URL}/backup/json`,
+        RESTORE: (filename: string) => `${API_BASE_URL}/backup/restore/${filename}`,
         DOWNLOAD: (filename: string) => `${API_BASE_URL}/backup/download/${filename}`,
-        DELETE: (filename: string) => `${API_BASE_URL}/backup/${filename}`
+        DELETE: (filename: string) => `${API_BASE_URL}/backup/${filename}`,
     },
     
     USERS: {

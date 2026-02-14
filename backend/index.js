@@ -7,17 +7,17 @@ const { setupCronJobs } = require('./src/cron/notificationCron');
 const { performanceMiddleware, PerformanceMonitor } = require('./src/middleware/performanceMonitor');
 
 
-const authRoutes = require('./src/routes/authRoutes');
-const productRoutes = require('./src/routes/productRoutes');
-const orderRoutes = require('./src/routes/orderRoutes');
-const analyticsRoutes = require('./src/routes/analyticsRoutes');
-const userRoutes = require('./src/routes/userRoutes');
-const auditRoutes = require('./src/routes/auditRoutes');
-const backupRoutes = require('./src/routes/backupRoutes');
-const wishlistRoutes = require('./src/routes/wishlistRoutes');
-const discountRoutes = require('./src/routes/discountRoutes');
-const purchaseRoutes = require('./src/routes/purchaseRoutes');
-const performanceRoutes = require('./src/routes/performanceRoutes');
+const authRoutes = require('./src/routes/AuthRoutes');
+const productRoutes = require('./src/routes/ProductRoutes');
+const orderRoutes = require('./src/routes/OrderRoutes');
+const analyticsRoutes = require('./src/routes/AnalyticsRoutes');
+const userRoutes = require('./src/routes/UserRoutes');
+const auditRoutes = require('./src/routes/AuditRoutes');
+const backupRoutes = require('./src/routes/BackupRoutes');
+const wishlistRoutes = require('./src/routes/WishlistRoutes');
+const discountRoutes = require('./src/routes/DiscountRoutes');
+const purchaseRoutes = require('./src/routes/PurchaseRoutes');
+const performanceRoutes = require('./src/routes/PerformanceRoutes');
 
 
 const app = express();
@@ -60,6 +60,8 @@ app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/discounts', discountRoutes);
 app.use('/api/procurement', purchaseRoutes);
 app.use('/api/performance', performanceRoutes);
+
+
 
 const startPerformanceMonitoring = () => {
     const monitor = new PerformanceMonitor();

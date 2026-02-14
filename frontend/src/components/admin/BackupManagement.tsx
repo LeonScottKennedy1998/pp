@@ -1,111 +1,123 @@
 import React, { useState, useEffect } from 'react';
-import './BackupManagement.css';
 import { API_URLS, getAuthHeaders } from '../../config/api';
+import './BackupManagement.css';
 
 interface BackupFile {
     filename: string;
     size: string;
     created: string;
-    type: 'SQL' | 'JSON';
+    type: 'SQL';
 }
 
 interface BackupStats {
     totalBackups: number;
     totalSize: string;
     lastBackup: string | null;
-    sqlCount: number;
-    jsonCount: number;
 }
 
 const BackupManagement = () => {
     const [backups, setBackups] = useState<BackupFile[]>([]);
     const [stats, setStats] = useState<BackupStats | null>(null);
     const [loading, setLoading] = useState(true);
-    const [creatingBackup, setCreatingBackup] = useState(false);
-    const [error, setError] = useState('');
+    const [creating, setCreating] = useState(false);
+    const [restoring, setRestoring] = useState<string | null>(null);
 
-    const [backupOptions, setBackupOptions] = useState({
-        includeData: true,
-        includeSchema: true,
-        backupType: 'sql'
-    });
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    const fetchBackups = async () => {
-
+    const fetchData = async () => {
         try {
-            const [backupsResponse, statsResponse] = await Promise.all([
-                fetch(API_URLS.BACKUPS.BASE, {
-                    headers: getAuthHeaders()
-                }),
-                fetch(API_URLS.BACKUPS.STATS, {
-                    headers: getAuthHeaders()
-                })
+            const headers = getAuthHeaders();
+            
+            const [backupsRes, statsRes] = await Promise.all([
+                fetch(API_URLS.BACKUPS.BASE, { headers }),
+                fetch(API_URLS.BACKUPS.STATS, { headers })
             ]);
 
-            if (!backupsResponse.ok) throw new Error('Ошибка загрузки бэкапов');
+            if (!backupsRes.ok || !statsRes.ok) {
+                throw new Error('Ошибка загрузки данных');
+            }
 
-            const backupsData = await backupsResponse.json();
-            const statsData = await statsResponse.json();
+            const backupsData = await backupsRes.json();
+            const statsData = await statsRes.json();
 
             setBackups(backupsData.backups || []);
             setStats(statsData);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (error) {
+            console.error('Ошибка загрузки:', error);
         } finally {
             setLoading(false);
         }
     };
 
-    useEffect(() => {
-        fetchBackups();
-    }, []);
-
-    const handleCreateBackup = async () => {
-        setCreatingBackup(true);
-        setError('');
-        
+    const createBackup = async () => {
+        setCreating(true);
         try {
-            const endpoint = backupOptions.backupType === 'sql'
-                ? API_URLS.BACKUPS.SQL_BACKUP
-                : API_URLS.BACKUPS.JSON_BACKUP;
-
-            const response = await fetch(endpoint, {
+            const response = await fetch(API_URLS.BACKUPS.BASE, {
                 method: 'POST',
-                headers: getAuthHeaders(),
-                body: backupOptions.backupType === 'sql'
-                    ? JSON.stringify({
-                        includeData: backupOptions.includeData,
-                        includeSchema: backupOptions.includeSchema
-                    })
-                    : JSON.stringify({})
+                headers: getAuthHeaders()
             });
 
             const data = await response.json();
+
             if (!response.ok) {
                 throw new Error(data.error || 'Ошибка создания бэкапа');
             }
 
-            alert(`✅ ${data.message}\nФайл: ${data.filename}\nРазмер: ${data.size}`);
-            fetchBackups();
-        } catch (err: any) {
-            alert(`❌ ${err.message}`);
+            alert(`✅ Бэкап успешно создан!\n\n` +
+                  `Файл: ${data.filename}\n` +
+                  `Размер: ${data.size}`);
+
+            fetchData();
+        } catch (error: any) {
+            alert(`❌ Ошибка: ${error.message}`);
         } finally {
-            setCreatingBackup(false);
+            setCreating(false);
         }
     };
 
-    const handleDownloadBackup = async (filename: string) => {
-        const token = localStorage.getItem('token');
+    const restoreBackup = async (filename: string) => {
+        const confirmMessage = 
+            `⚠️ ВНИМАНИЕ! Восстановление из "${filename}"\n\n` +
+            `Это действие ПОЛНОСТЬЮ ЗАМЕНИТ все данные в базе данных!\n` +
+            `Все текущие данные будут потеряны.\n\n` +
+            `Вы уверены, что хотите продолжить?`;
 
+        if (!window.confirm(confirmMessage)) return;
+
+        setRestoring(filename);
         try {
-            const response = await fetch(
-                API_URLS.BACKUPS.DOWNLOAD(filename),
-                {
-                    headers: getAuthHeaders()
-                }
-            );
+            const response = await fetch(API_URLS.BACKUPS.RESTORE(filename), {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: JSON.stringify({ confirm: true })
+            });
 
-            if (!response.ok) throw new Error('Ошибка скачивания');
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Ошибка восстановления');
+            }
+
+            alert(`✅ База данных успешно восстановлена из "${filename}"`);
+            fetchData();
+        } catch (error: any) {
+            alert(`❌ Ошибка восстановления: ${error.message}`);
+        } finally {
+            setRestoring(null);
+        }
+    };
+
+    const downloadBackup = async (filename: string) => {
+        try {
+            const response = await fetch(API_URLS.BACKUPS.DOWNLOAD(filename), {
+                headers: getAuthHeaders()
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка скачивания');
+            }
 
             const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
@@ -114,179 +126,159 @@ const BackupManagement = () => {
             a.download = filename;
             document.body.appendChild(a);
             a.click();
-            window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
-        } catch (err: any) {
-            alert(`❌ ${err.message}`);
+            window.URL.revokeObjectURL(url);
+        } catch (error: any) {
+            alert(`❌ Ошибка скачивания: ${error.message}`);
         }
     };
 
-    const handleDeleteBackup = async (filename: string) => {
+    const deleteBackup = async (filename: string) => {
         if (!window.confirm(`Удалить бэкап "${filename}"?`)) return;
 
-        const token = localStorage.getItem('token');
-
         try {
-            const response = await fetch(
-                API_URLS.BACKUPS.DELETE(filename),
-                {
-                    method: 'DELETE',
-                    headers: getAuthHeaders()
-                }
-            );
+            const response = await fetch(API_URLS.BACKUPS.DELETE(filename), {
+                method: 'DELETE',
+                headers: getAuthHeaders()
+            });
 
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error || 'Ошибка удаления');
+            if (!response.ok) {
+                throw new Error('Ошибка удаления');
+            }
 
             alert('✅ Бэкап удалён');
-            fetchBackups();
-        } catch (err: any) {
-            alert(`❌ ${err.message}`);
+            fetchData();
+        } catch (error: any) {
+            alert(`❌ Ошибка удаления: ${error.message}`);
         }
     };
 
-    const formatDate = (dateString: string) =>
-        new Date(dateString).toLocaleString('ru-RU');
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
 
-    if (loading) return <div className="loading">Загрузка бэкапов...</div>;
+    const formatSize = (size: string) => {
+        return size;
+    };
+
+    if (loading) {
+        return (
+            <div className="backup-management">
+                <div className="loading">
+                    <div className="spinner"></div>
+                    <p>Загрузка...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="backup-management">
-            <div className="page-header">
-                <h1>Управление резервными копиями</h1>
-                <p>Создание и скачивание резервных копий базы данных</p>
-            </div>
-
-            {error && <div className="error-message">{error}</div>}
+            <h1>💾 Резервное копирование</h1>
 
             {stats && (
                 <div className="stats-grid">
                     <div className="stat-card">
                         <h3>Всего бэкапов</h3>
                         <div className="stat-number">{stats.totalBackups}</div>
-                        <div className="stat-detail">
-                            SQL: {stats.sqlCount} | JSON: {stats.jsonCount}
-                        </div>
                     </div>
-
                     <div className="stat-card">
                         <h3>Общий размер</h3>
                         <div className="stat-number">{stats.totalSize}</div>
                     </div>
-
                     <div className="stat-card">
                         <h3>Последний бэкап</h3>
                         <div className="stat-number">
-                            {stats.lastBackup ? formatDate(stats.lastBackup) : 'Нет'}
+                            {stats.lastBackup 
+                                ? new Date(stats.lastBackup).toLocaleDateString('ru-RU')
+                                : '—'}
                         </div>
                     </div>
                 </div>
             )}
 
             <div className="backup-card">
-                <h2>📁 Создать бэкап</h2>
-
-                <div className="radio-group">
-                    <label>
-                        <input
-                            type="radio"
-                            value="sql"
-                            checked={backupOptions.backupType === 'sql'}
-                            onChange={(e) =>
-                                setBackupOptions({
-                                    ...backupOptions,
-                                    backupType: e.target.value
-                                })
-                            }
-                        />
-                        SQL
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="json"
-                            checked={backupOptions.backupType === 'json'}
-                            onChange={(e) =>
-                                setBackupOptions({
-                                    ...backupOptions,
-                                    backupType: e.target.value
-                                })
-                            }
-                        />
-                        JSON
-                    </label>
-                </div>
-
-                {backupOptions.backupType === 'sql' && (
-                    <div className="checkbox-group">
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={backupOptions.includeSchema}
-                                onChange={(e) =>
-                                    setBackupOptions({
-                                        ...backupOptions,
-                                        includeSchema: e.target.checked
-                                    })
-                                }
-                            />
-                            Структура
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={backupOptions.includeData}
-                                onChange={(e) =>
-                                    setBackupOptions({
-                                        ...backupOptions,
-                                        includeData: e.target.checked
-                                    })
-                                }
-                            />
-                            Данные
-                        </label>
-                    </div>
-                )}
-
+                <h2>📁 Создать полный бэкап базы данных</h2>
+                <p className="backup-description">
+                    Будет создан полный SQL дамп всей базы данных с использованием pg_dump.
+                    Бэкап включает структуру всех таблиц, данные, индексы и ограничения.
+                </p>
+                
                 <button
-                    onClick={handleCreateBackup}
-                    disabled={creatingBackup}
-                    className="cta-button"
+                    onClick={createBackup}
+                    disabled={creating}
+                    className="create-button"
                 >
-                    {creatingBackup ? 'Создание...' : 'Создать бэкап'}
+                    {creating ? '🔄 Создание...' : '💾 Создать полный бэкап'}
                 </button>
             </div>
 
             <div className="backup-card">
-                <h2>📦 Бэкапы</h2>
-
-                {backups.map((backup) => (
-                    <div key={backup.filename} className="backup-item">
-                        <div>
-                            <strong>{backup.filename}</strong>
-                            <div>
-                                {backup.size} • {formatDate(backup.created)}
+                <h2>📋 Существующие бэкапы</h2>
+                
+                {backups.length === 0 ? (
+                    <p className="empty-message">Нет доступных бэкапов</p>
+                ) : (
+                    <div className="backup-list">
+                        {backups.map(backup => (
+                            <div key={backup.filename} className="backup-item">
+                                <div className="backup-info">
+                                    <div className="backup-name">
+                                        <span className="backup-icon">📄</span>
+                                        <strong>{backup.filename}</strong>
+                                    </div>
+                                    <div className="backup-meta">
+                                        <span className="backup-size">{backup.size}</span>
+                                        <span>📅 {formatDate(backup.created)}</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="backup-actions">
+                                    <button
+                                        onClick={() => downloadBackup(backup.filename)}
+                                        className="action-button download"
+                                        title="Скачать бэкап"
+                                    >
+                                        ⬇️
+                                    </button>
+                                    
+                                    <button
+                                        onClick={() => restoreBackup(backup.filename)}
+                                        disabled={restoring === backup.filename}
+                                        className="action-button restore"
+                                        title="Восстановить из бэкапа"
+                                    >
+                                        {restoring === backup.filename ? '⏳' : '↩️'}
+                                    </button>
+                                    
+                                    <button
+                                        onClick={() => deleteBackup(backup.filename)}
+                                        className="action-button delete"
+                                        title="Удалить бэкап"
+                                    >
+                                        🗑️
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-
-                        <div className="backup-actions">
-    <button
-        className="download-btn"
-        onClick={() => handleDownloadBackup(backup.filename)}
-    >
-        Скачать
-    </button>
-
-    <button
-        className="delete-btn"
-        onClick={() => handleDeleteBackup(backup.filename)}
-    >
-        Удалить
-    </button>
-</div>
-
+                        ))}
                     </div>
-                ))}
+                )}
+            </div>
+
+            <div className="info-card">
+                <h4>ℹ️ Информация о восстановлении</h4>
+                <ul>
+                    <li>Восстановление полностью заменяет текущую базу данных</li>
+                    <li>Процесс может занять некоторое время</li>
+                    <li>Во время восстановления база данных будет недоступна</li>
+                    <li>Рекомендуется создать свежий бэкап перед восстановлением</li>
+                </ul>
             </div>
         </div>
     );

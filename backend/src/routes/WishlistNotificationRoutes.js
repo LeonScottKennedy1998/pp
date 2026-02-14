@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const wishlistNotificationController = require('../controllers/wishlistNotificationController');
+const wishlistNotificationController = require('../controllers/WishlistNotificationController');
 const { authMiddleware, roleMiddleware } = require('../middleware/auth');
 
 router.get('/check', 

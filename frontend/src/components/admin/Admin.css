@@ -603,6 +603,26 @@
         min-width: auto;
     }
     
+    .admin-table th:nth-child(2),
+    .admin-table td:nth-child(2) {
+        position: sticky;
+        left: 0;
+        width: 140px; /* можно подрегулировать */
+        max-width: 140px;
+        min-width: 120px;
+        overflow: visible; /* чтобы перенос работал */
+        white-space: normal; /* разрешаем перенос */
+        word-break: break-word; /* переносим длинные слова */
+        background: #fff; /* цвет ячейки */
+        color: #2c3e50;
+        z-index: 2;
+        box-shadow: 2px 0 5px -2px rgba(0,0,0,0.2);
+    }
+
+    .admin-table th:nth-child(2) {
+        background: #2c3e50;
+        color: white;
+    }
     .edit-btn,
     .block-btn,
     .unblock-btn,
@@ -870,3 +890,4 @@
         gap: 0.25rem;
     }
 }
+

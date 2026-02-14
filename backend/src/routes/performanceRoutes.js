@@ -1,7 +1,7 @@
 // routes/performanceRoutes.js
 const express = require('express');
 const router = express.Router();
-const performanceController = require('../controllers/performanceController');
+const performanceController = require('../controllers/PerformanceController');
 const { authMiddleware, roleMiddleware } = require('../middleware/auth');
 
 router.get('/dashboard-stats', 

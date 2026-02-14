@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const wishlistController = require('../controllers/wishlistController');
+const wishlistController = require('../controllers/WishlistController');
 const { authMiddleware, roleMiddleware } = require('../middleware/auth');
 
 router.post('/', 

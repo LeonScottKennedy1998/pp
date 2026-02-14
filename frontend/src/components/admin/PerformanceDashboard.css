@@ -179,12 +179,6 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
-    
-    .slow-requests-table,
-    .endpoints-table {
-        display: block;
-        overflow-x: auto;
-    }
 }
 
 /* Планшеты в портретной ориентации (до 768px) */
@@ -204,6 +198,8 @@
     .refresh-btn {
         padding: 0.75rem 1rem;
         font-size: 0.9rem;
+        width: auto;
+        min-width: 120px;
     }
     
     .auto-refresh {
@@ -214,7 +210,7 @@
         font-size: 0.85rem;
     }
     
-    /* Grid layouts */
+    /* Grid layouts - все в 1 колонку для мобильных */
     .system-grid,
     .realtime-grid,
     .requests-grid,
@@ -229,6 +225,9 @@
     .stat-card,
     .email-stat-card {
         padding: 1.25rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
     }
     
     .info-card h3,
@@ -243,29 +242,29 @@
     .metric-value {
         font-size: 1.8rem;
         margin: 1rem 0;
+        word-break: break-word;
     }
     
     .email-stat-value {
         font-size: 1.5rem;
         margin: 0.75rem 0;
+        word-break: break-word;
     }
     
-    /* Таблицы */
-    .slow-requests-table,
-    .endpoints-table {
-        margin: 1rem -0.5rem;
-        width: calc(100% + 1rem);
-        border-radius: 0;
+    /* Статистика внутри карточек */
+    .stat-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
     }
     
-    .slow-requests-table th,
-    .slow-requests-table td,
-    .endpoints-table th,
-    .endpoints-table td {
-        padding: 0.75rem;
+    .stat-details p {
         font-size: 0.9rem;
-        white-space: nowrap;
-        min-width: 120px;
+        margin: 0;
+        padding: 4px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        text-align: center;
     }
     
     /* Секции */
@@ -277,6 +276,9 @@
     .popular-endpoints-section {
         padding: 1.25rem;
         margin-bottom: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
     
     .system-info-section h2,
@@ -290,10 +292,28 @@
         margin-bottom: 1rem;
     }
     
-    /* Статистика */
-    .stat-details p {
+    /* Таблицы с горизонтальным скроллом */
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        margin: 1rem 0;
+        border-radius: 8px;
+    }
+    
+    .slow-requests-table,
+    .endpoints-table {
+        min-width: 600px;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .slow-requests-table th,
+    .slow-requests-table td,
+    .endpoints-table th,
+    .endpoints-table td {
+        padding: 0.75rem;
         font-size: 0.9rem;
-        margin: 0.5rem 0;
+        white-space: nowrap;
     }
     
     .loading,
@@ -313,12 +333,18 @@
         font-size: 1.3rem;
     }
     
+    .dashboard-header {
+        padding: 0.75rem;
+    }
+    
     .dashboard-controls {
         align-items: stretch;
+        gap: 0.5rem;
     }
     
     .refresh-btn {
         width: 100%;
+        min-width: auto;
     }
     
     .auto-refresh {
@@ -342,24 +368,38 @@
     .stat-card h3,
     .email-stat-card h4 {
         font-size: 1rem;
+        margin-bottom: 0.75rem;
     }
     
     .metric-value {
         font-size: 1.5rem;
+        margin: 0.5rem 0;
     }
     
     .email-stat-value {
         font-size: 1.3rem;
+        margin: 0.5rem 0;
     }
     
-    /* Таблицы */
-    .slow-requests-table th,
-    .slow-requests-table td,
-    .endpoints-table th,
-    .endpoints-table td {
-        padding: 0.5rem;
+    /* Статистика внутри карточек */
+    .stat-details {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+    
+    .stat-details p {
         font-size: 0.85rem;
-        min-width: 100px;
+        padding: 6px;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .stat-details p::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c3e50;
+        margin-right: 8px;
     }
     
     /* Секции */
@@ -369,7 +409,7 @@
     .email-stats-section,
     .slow-requests-section,
     .popular-endpoints-section {
-        padding: 1rem;
+        padding: 0.75rem;
     }
     
     .system-info-section h2,
@@ -379,10 +419,8 @@
     .slow-requests-section h2,
     .popular-endpoints-section h2 {
         font-size: 1.2rem;
-    }
-    
-    .stat-details p {
-        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
     }
 }
 
@@ -403,7 +441,7 @@
     .metric-card h4,
     .stat-card h3,
     .email-stat-card h4 {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
     
     .metric-value {
@@ -420,7 +458,6 @@
     .endpoints-table td {
         padding: 0.4rem;
         font-size: 0.8rem;
-        min-width: 90px;
     }
 }
 
@@ -437,14 +474,19 @@
     }
     
     .system-grid,
-    .realtime-grid {
+    .realtime-grid,
+    .requests-grid,
+    .email-stats-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .slow-requests-section,
+    .popular-endpoints-section {
+        overflow-x: visible;
     }
     
     .slow-requests-table,
     .endpoints-table {
-        display: table;
-        width: 100%;
-        margin: 1rem 0;
+        min-width: 100%;
     }
 }
