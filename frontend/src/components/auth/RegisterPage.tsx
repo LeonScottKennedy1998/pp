@@ -110,11 +110,25 @@ const RegisterPage: React.FC = () => {
                         <div className="form-row" style={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
                             <div className="form-group" style={{ flex: 1 }}>
                                 <label>Пароль *</label>
-                                <input type="password" name="password" style={{ width: '100%', height: '48px' }} />
+                                <input 
+                                    type="password" 
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    style={{ width: '100%', height: '48px' }} 
+                                    required
+                                />
                             </div>
                             <div className="form-group" style={{ flex: 1 }}>
                                 <label>Подтвердите пароль *</label>
-                                <input type="password" name="confirmPassword" style={{ width: '100%', height: '48px' }} />
+                                <input 
+                                    type="password" 
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    style={{ width: '100%', height: '48px' }} 
+                                    required
+                                />
                             </div>
                         </div>
                         
