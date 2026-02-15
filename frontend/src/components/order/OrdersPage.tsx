@@ -121,26 +121,28 @@ const OrdersPage = () => {
                             
                             <div className="order-items">
                                 <h4>Состав заказа:</h4>
-                                <table className="order-items-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Товар</th>
-                                            <th>Количество</th>
-                                            <th>Цена</th>
-                                            <th>Сумма</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {order.items && order.items.map((item, index) => (
-                                            <tr key={index}>
-                                                <td>{item.product_name}</td>
-                                                <td>{item.quantity} шт.</td>
-                                                <td>{item.price.toLocaleString()} ₽</td>
-                                                <td>{item.total.toLocaleString()} ₽</td>
+                                <div className="table-wrapper">
+                                    <table className="order-items-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Товар</th>
+                                                <th>Количество</th>
+                                                <th>Цена</th>
+                                                <th>Сумма</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {order.items && order.items.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td data-label="Товар">{item.product_name}</td>
+                                                    <td data-label="Количество">{item.quantity} шт.</td>
+                                                    <td data-label="Цена">{item.price.toLocaleString()} ₽</td>
+                                                    <td data-label="Сумма">{item.total.toLocaleString()} ₽</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             
                             <div className="order-footer">
