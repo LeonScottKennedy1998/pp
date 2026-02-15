@@ -199,7 +199,7 @@ const performanceMiddleware = (req, res, next) => {
     monitor.startMeasurement(requestId, req.path);
     
     // Сохраняем количество запросов
-    monitor.saveRequestCount(req.path).catch(console.error);
+    //monitor.saveRequestCount(req.path).catch(console.error);
     
     // Перехватываем отправку ответа
     const originalSend = res.send;
