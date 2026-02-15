@@ -5,12 +5,12 @@ const monitor = new PerformanceMonitor();
 const dns = require('dns');
 
 const transporter = nodemailer.createTransport({
-    host: process.env.MAILRU_HOST,
-    port: process.env.MAILRU_PORT,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     secure: true,
     auth: {
-        user: process.env.MAILRU_USER,
-        pass: process.env.MAILRU_PASSWORD
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
     },
     tls: {
         rejectUnauthorized: false
