@@ -4,36 +4,29 @@ const monitor = new PerformanceMonitor();
 
 // Явные настройки для Яндекса
 const transporter = nodemailer.createTransport({
-    host: 'smtp.yandex.ru',
-    port: 465,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     secure: true, // true для 465
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
     },
     tls: {
-        // Не проверять сертификат (для Яндекса)
-        rejectUnauthorized: false
+        rejectUnauthorized: false // для Mail.ru
     },
-    // Таймауты
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
-    // Принудительно использовать IPv4
+    // Принудительный IPv4
     lookup: function(hostname, options, callback) {
         const dns = require('dns');
         dns.lookup(hostname, { family: 4 }, callback);
     }
 });
 
-// Проверка подключения
 transporter.verify((error, success) => {
     if (error) {
-        console.error('❌ Ошибка подключения к Яндекс.Почте:', error.message);
-        console.error('📧 Убедись, что пароль приложения правильный и SMTP доступ включен');
+        console.error('❌ Ошибка подключения к Mail.ru:', error.message);
+        console.error('📧 Проверь пароль приложения');
     } else {
-        console.log('✅ Почтовый сервер Яндекс готов к отправке');
-        console.log('📧 Отправка писем будет работать!');
+        console.log('✅ Почтовый сервер Mail.ru готов!');
     }
 });
 
