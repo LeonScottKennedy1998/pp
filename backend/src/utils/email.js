@@ -2,24 +2,38 @@ const nodemailer = require('nodemailer');
 const { PerformanceMonitor } = require('../middleware/performanceMonitor');
 const monitor = new PerformanceMonitor();
 
+// Явные настройки для Яндекса
 const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: true, // true для 465 порта
+    host: 'smtp.yandex.ru',
+    port: 465,
+    secure: true, // true для 465
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
     },
     tls: {
-        rejectUnauthorized: false // для Яндекса иногда нужно
+        // Не проверять сертификат (для Яндекса)
+        rejectUnauthorized: false
+    },
+    // Таймауты
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+    // Принудительно использовать IPv4
+    lookup: function(hostname, options, callback) {
+        const dns = require('dns');
+        dns.lookup(hostname, { family: 4 }, callback);
     }
 });
 
+// Проверка подключения
 transporter.verify((error, success) => {
     if (error) {
-        console.error('❌ Ошибка подключения к почте:', error);
+        console.error('❌ Ошибка подключения к Яндекс.Почте:', error.message);
+        console.error('📧 Убедись, что пароль приложения правильный и SMTP доступ включен');
     } else {
-        console.log('✅ Почтовый сервер готов к отправке');
+        console.log('✅ Почтовый сервер Яндекс готов к отправке');
+        console.log('📧 Отправка писем будет работать!');
     }
 });
 
