@@ -439,7 +439,6 @@ async resendTwoFactorCode(req, res) {
         
         // Генерируем новый код
         const code = generateSixDigitCode();
-
         const expires = new Date(Date.now() + 10 * 60 * 1000);
         
         await pool.query(
@@ -449,15 +448,27 @@ async resendTwoFactorCode(req, res) {
             [code, expires, queryUserId]
         );
         
-        // Отправляем email
-        const emailSent = await sendTwoFactorEmail(userEmail, code);
+        // Асинхронная отправка email
+        setImmediate(async () => {
+            try {
+                console.log('📧 Асинхронная отправка 2FA кода на:', userEmail);
+                const start = Date.now();
+                
+                const emailSent = await sendTwoFactorEmail(userEmail, code);
+                
+                const duration = Date.now() - start;
+                
+                if (emailSent) {
+                    console.log(`📧 2FA код отправлен за ${duration} мс`);
+                } else {
+                    console.error('❌ Ошибка отправки 2FA кода');
+                }
+            } catch (emailError) {
+                console.error('❌ Ошибка асинхронной отправки 2FA кода:', emailError);
+            }
+        });
         
-        if (!emailSent) {
-            return res.status(500).json({ 
-                error: 'Ошибка отправки кода' 
-            });
-        }
-        
+        // Сразу отправляем ответ
         res.json({
             message: 'Новый код отправлен на email',
             expiresIn: '10 минут'
@@ -862,16 +873,65 @@ async deleteAccount(req, res) {
         
         const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
         
-        const { sendResetEmail } = require('../utils/email');
-        const emailSent = await sendResetEmail(user.email, resetLink);
-
-        if (!emailSent) {
-            return res.status(500).json({ error: 'Ошибка отправки email' });
-        }
+        // Асинхронная отправка email с помощью setImmediate
+        setImmediate(async () => {
+            try {
+                console.log('📧 Асинхронная отправка email для сброса пароля на:', user.email);
+                const start = Date.now();
+                
+                const { sendResetEmail } = require('../utils/email');
+                const emailSent = await sendResetEmail(user.email, resetLink);
+                
+                const duration = Date.now() - start;
+                
+                if (emailSent) {
+                    console.log(`📧 Email для сброса пароля отправлен за ${duration} мс`);
+                } else {
+                    console.error('❌ Ошибка отправки email для сброса пароля');
+                    
+                    // Логируем ошибку отправки в audit_log
+                    await pool.query(
+                        `INSERT INTO audit_log 
+                         (user_id, audit_action, audit_table, table_id, new_data)
+                         VALUES ($1, 'PASSWORD_RESET_EMAIL_FAILED', 'users', $2, $3)`,
+                        [user.user_id, user.user_id, JSON.stringify({ 
+                            error: 'Failed to send reset email',
+                            timestamp: new Date().toISOString()
+                        })]
+                    );
+                }
+            } catch (emailError) {
+                console.error('❌ Ошибка асинхронной отправки email для сброса пароля:', emailError);
+                
+                // Логируем ошибку
+                try {
+                    await pool.query(
+                        `INSERT INTO audit_log 
+                         (user_id, audit_action, audit_table, table_id, new_data)
+                         VALUES ($1, 'PASSWORD_RESET_EMAIL_ERROR', 'users', $2, $3)`,
+                        [user.user_id, user.user_id, JSON.stringify({ 
+                            error: emailError.message,
+                            timestamp: new Date().toISOString()
+                        })]
+                    );
+                } catch (logError) {
+                    console.error('Ошибка логирования:', logError);
+                }
+            }
+        });
         
+        // Сразу отправляем ответ пользователю
         res.json({ 
             message: 'Инструкции по сбросу пароля отправлены на email',
+            // Добавляем информацию для отладки (можно убрать в продакшене)
+            debug: {
+                email: user.email,
+                token_generated: true,
+                expires_in: '1 час'
+            }
         });
+        
+        console.log(`✅ Ответ на запрос сброса пароля отправлен за ${Date.now() - req.startTime} мс`);
         
     } catch (error) {
         console.error('Ошибка запроса сброса пароля:', error);
