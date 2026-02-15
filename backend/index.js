@@ -28,9 +28,9 @@ app.set('trust proxy', 1);
 const corsOptions = {
   origin: [
     'http://localhost:3000',                    // для локальной разработки
-    'https://pp-front-9cju.onrender.com',
-    'https://pp-ten-pink.vercel.app',              // ваш будущий фронтенд на Vercel
-    'https://pp-g30d.onrender.com'     // ваш бэкенд на Render
+    'https://pp-ten-pink.vercel.app',   
+    'pp-8ou7.vercel.app'           // ваш будущий фронтенд на Vercel
+       // ваш бэкенд на Render
   ],
   credentials: true,                              // для кук и авторизации
   optionsSuccessStatus: 200
