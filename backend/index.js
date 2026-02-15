@@ -34,7 +34,6 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'https://pp-ten-pink.vercel.app',   
-    'http://213.165.60.204:5001',
     'pp-vv34.vercel.app'
   ],
   credentials: true,
