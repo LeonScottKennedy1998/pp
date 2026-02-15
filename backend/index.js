@@ -23,6 +23,7 @@ const performanceRoutes = require('./src/routes/PerformanceRoutes');
 const app = express();
 const port = process.env.PORT || 5001;
 const HOST = '0.0.0.0';
+app.set('trust proxy', 1);
 
 const corsOptions = {
   origin: [
@@ -35,7 +36,7 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(sqlInjectionCheck);
