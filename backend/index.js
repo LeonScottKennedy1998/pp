@@ -32,13 +32,12 @@ app.set('trust proxy', 1);
 
 const corsOptions = {
   origin: [
-    'http://localhost:3000',                    // для локальной разработки
+    'http://localhost:3000',
     'https://pp-ten-pink.vercel.app',   
-    'pp-8ou7.vercel.app',
-    'http://213.165.60.204:5001'           // ваш будущий фронтенд на Vercel
-       // ваш бэкенд на Render
+    'http://213.165.60.204:5001',
+    'pp-vv34.vercel.app'
   ],
-  credentials: true,                              // для кук и авторизации
+  credentials: true,
   optionsSuccessStatus: 200
 };
 
