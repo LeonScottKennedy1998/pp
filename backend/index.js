@@ -1,4 +1,9 @@
 require('dotenv').config();
+require('dotenv').config();
+console.log('📂 Текущая папка:', __dirname);
+console.log('🔑 ENCRYPTION_KEY:', process.env.ENCRYPTION_KEY);
+console.log('🔑 NODE_ENV:', process.env.NODE_ENV);
+console.log('🔑 DB_URL:', process.env.DB_URL ? 'есть' : 'нет');
 const express = require('express');
 const cors = require('cors');
 const pool = require('./src/config/database');

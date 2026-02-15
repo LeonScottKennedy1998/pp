@@ -12,14 +12,13 @@ const pool = new Pool({
     database: process.env.DB_NAME,
     
     // Общие настройки
+    ssl: {
+        rejectUnauthorized: false
+    },
+    
     max: 20,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 10000,
-    
-    // SSL для продакшена
-    ssl: process.env.NODE_ENV === 'production' ? { 
-        rejectUnauthorized: false 
-    } : false
+    connectionTimeoutMillis: 10000
 });
 
 // Проверка подключения
