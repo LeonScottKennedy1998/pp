@@ -27,8 +27,8 @@ const HOST = '0.0.0.0';
 const corsOptions = {
   origin: [
     'http://localhost:3000',                    // для локальной разработки
-    'https://mpt-store.vercel.app',              // ваш будущий фронтенд на Vercel
-    'https://mpt-store-backend.onrender.com'     // ваш бэкенд на Render
+    'https://pp-1-1c2l.onrender.com',              // ваш будущий фронтенд на Vercel
+    'https://pp-g30d.onrender.com'     // ваш бэкенд на Render
   ],
   credentials: true,                              // для кук и авторизации
   optionsSuccessStatus: 200
