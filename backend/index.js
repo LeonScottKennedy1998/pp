@@ -34,7 +34,8 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',                    // для локальной разработки
     'https://pp-ten-pink.vercel.app',   
-    'pp-8ou7.vercel.app'           // ваш будущий фронтенд на Vercel
+    'pp-8ou7.vercel.app',
+    'http://213.165.60.204:5001'           // ваш будущий фронтенд на Vercel
        // ваш бэкенд на Render
   ],
   credentials: true,                              // для кук и авторизации
