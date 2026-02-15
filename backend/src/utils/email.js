@@ -2,21 +2,21 @@ const nodemailer = require('nodemailer');
 const { PerformanceMonitor } = require('../middleware/performanceMonitor');
 const monitor = new PerformanceMonitor();
 
-// Явные настройки для Яндекса
+const dns = require('dns');
+
 const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: true, // true для 465
+    host: process.env.MAILRU_HOST,
+    port: process.env.MAILRU_PORT,
+    secure: true,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
+        user: process.env.MAILRU_USER,
+        pass: process.env.MAILRU_PASSWORD
     },
     tls: {
-        rejectUnauthorized: false // для Mail.ru
+        rejectUnauthorized: false
     },
-    // Принудительный IPv4
-    lookup: function(hostname, options, callback) {
-        const dns = require('dns');
+    // 🔥 ПРИНУДИТЕЛЬНО IPv4
+    lookup: (hostname, options, callback) => {
         dns.lookup(hostname, { family: 4 }, callback);
     }
 });
