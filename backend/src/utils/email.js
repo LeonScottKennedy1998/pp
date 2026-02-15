@@ -3,11 +3,21 @@ const { PerformanceMonitor } = require('../middleware/performanceMonitor');
 const monitor = new PerformanceMonitor();
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: false, // ВАЖНО: false для теста
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
-    }
+    },
+    tls: {
+        rejectUnauthorized: false,  // не проверять сертификат
+        ciphers: 'SSLv3'  // принудительно старый протокол
+    },
+    requireTLS: false,  // не требовать TLS
+    connectionTimeout: 30000,
+    greetingTimeout: 30000,
+    socketTimeout: 60000
 });
 
 transporter.verify((error, success) => {
