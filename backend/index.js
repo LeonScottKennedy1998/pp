@@ -33,8 +33,8 @@ app.set('trust proxy', 1);
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'https://pp-ten-pink.vercel.app',   
-    'pp-vv34.vercel.app'
+    'https://pp-ten-pink.vercel.app',
+    'https://pp-vv34.vercel.app'
   ],
   credentials: true,
   optionsSuccessStatus: 200
