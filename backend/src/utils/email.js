@@ -2,31 +2,19 @@ const nodemailer = require('nodemailer');
 const { PerformanceMonitor } = require('../middleware/performanceMonitor');
 const monitor = new PerformanceMonitor();
 
-const dns = require('dns');
-
 const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: true,
+    service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
-    },
-    tls: {
-        rejectUnauthorized: false
-    },
-    // 🔥 ПРИНУДИТЕЛЬНО IPv4
-    lookup: (hostname, options, callback) => {
-        dns.lookup(hostname, { family: 4 }, callback);
     }
 });
 
 transporter.verify((error, success) => {
     if (error) {
-        console.error('❌ Ошибка подключения к Mail.ru:', error.message);
-        console.error('📧 Проверь пароль приложения');
+        console.error('❌ Ошибка подключения к почте:', error);
     } else {
-        console.log('✅ Почтовый сервер Mail.ru готов!');
+        console.log('✅ Почтовый сервер готов к отправке');
     }
 });
 
