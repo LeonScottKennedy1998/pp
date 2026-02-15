@@ -3,7 +3,6 @@ import './UserManual.css';
 
 const UserManual = () => {
     const [user, setUser] = useState<any>(null);
-    const [pdfError, setPdfError] = useState(false);
     
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -24,10 +23,6 @@ const UserManual = () => {
     
     const currentManual = manuals[role as keyof typeof manuals] || '/manuals/client_manual.pdf';
 
-    const handlePdfError = () => {
-        setPdfError(true);
-    };
-
     // Определяем мобильное устройство
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
@@ -42,85 +37,67 @@ const UserManual = () => {
                         <h2>Для вашей роли доступно руководство:</h2>
                         <div className="role-badge">{role}</div>
                     </div>
-                    
-                    <div className="download-section">
-                        <a 
-                            href={currentManual} 
-                            download 
-                            className="download-btn"
-                        >
-                            📥 Скачать PDF
-                        </a>
-                        <p className="help-text">Рекомендуется скачать руководство для оффлайн использования</p>
-                    </div>
                 </div>
                 
-                {pdfError ? (
-                    <div className="pdf-fallback">
-                        <p>Не удалось отобразить PDF в браузере.</p>
-                        <div className="fallback-options">
+                {isMobile ? (
+                    // Мобильная версия - только скачивание
+                    <div className="mobile-pdf-section">
+                        <div className="mobile-pdf-icon">📄</div>
+                        <h3>Руководство пользователя для {role}</h3>
+                        <p className="mobile-pdf-info">
+                            Для просмотра руководства на мобильном устройстве 
+                            необходимо скачать PDF-файл
+                        </p>
+                        
+                        <div className="mobile-pdf-actions">
+                            <a 
+                                href={currentManual} 
+                                download 
+                                className="mobile-download-btn"
+                            >
+                                📥 Скачать руководство
+                            </a>
                             <a 
                                 href={currentManual} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="fallback-btn"
+                                className="mobile-open-btn"
                             >
-                                📄 Открыть в новой вкладке
+                                📄 Открыть в браузере
                             </a>
+                        </div>
+                        
+                        <p className="mobile-pdf-note">
+                            После скачивания откройте файл в любом PDF-ридере на вашем устройстве
+                        </p>
+                    </div>
+                ) : (
+                    // Десктопная версия - PDF вьювер
+                    <>
+                        <div className="download-section">
                             <a 
                                 href={currentManual} 
                                 download 
-                                className="fallback-btn download"
+                                className="download-btn"
                             >
-                                📥 Скачать для просмотра
+                                📥 Скачать PDF
                             </a>
+                            <p className="help-text">Рекомендуется скачать руководство для оффлайн использования</p>
                         </div>
-                    </div>
-                ) : (
-                    <div className="pdf-container">
-                        {isMobile ? (
-                            // Для мобильных используем object с дополнительными параметрами
-                            <object
-                                data={`${currentManual}#toolbar=1&navpanes=1&scrollbar=1&view=FitH`}
-                                type="application/pdf"
-                                className="pdf-viewer"
-                                onError={handlePdfError}
-                            >
-                                <div className="pdf-mobile-fallback">
-                                    <p>На мобильных устройствах рекомендуется открыть PDF в новой вкладке</p>
-                                    <a 
-                                        href={currentManual} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="mobile-open-btn"
-                                    >
-                                        📄 Открыть PDF
-                                    </a>
-                                    <a 
-                                        href={currentManual} 
-                                        download 
-                                        className="mobile-download-btn"
-                                    >
-                                        📥 Скачать PDF
-                                    </a>
-                                </div>
-                            </object>
-                        ) : (
-                            // Для десктопа оставляем iframe
+                        
+                        <div className="pdf-container">
                             <iframe 
                                 src={`${currentManual}#toolbar=1&navpanes=1&scrollbar=1&view=FitH`}
                                 title="Руководство пользователя"
                                 className="pdf-viewer"
-                                onError={handlePdfError}
                             >
                                 <p>Ваш браузер не поддерживает отображение PDF. 
                                 <a href={currentManual}>Скачайте руководство</a> для просмотра.</p>
                             </iframe>
-                        )}
-                    </div>
+                        </div>
+                    </>
                 )}
                 
-
             </div>
         </div>
     );

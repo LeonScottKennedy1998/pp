@@ -37,8 +37,10 @@
     font-size: 0.9rem;
 }
 
+/* Десктопные стили */
 .download-section {
     text-align: right;
+    margin-bottom: 2rem;
 }
 
 .download-btn {
@@ -63,163 +65,131 @@
     color: #7f8c8d;
 }
 
-/* PDF Container Styles */
 .pdf-container {
     margin: 2rem 0;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     overflow: hidden;
-    background: #f5f5f5;
-    position: relative;
-    width: 100%;
 }
 
 .pdf-viewer {
     width: 100%;
     height: 600px;
     border: none;
-    display: block;
 }
 
-/* Стили для object (мобильная версия) */
-object.pdf-viewer {
-    display: block;
-    width: 100%;
-    height: 600px;
-}
-
-/* Мобильные улучшения для PDF */
+/* Мобильные стили - только для мобилок */
 @media (max-width: 768px) {
+    .user-manual-page {
+        padding: 1rem;
+    }
+    
+    .manual-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .role-info h2 {
+        font-size: 1.2rem;
+    }
+    
+    .role-badge {
+        font-size: 0.85rem;
+        padding: 0.4rem 1.2rem;
+    }
+    
+    /* Скрываем десктопные элементы на мобилке */
+    .download-section,
     .pdf-container {
-        margin: 1.5rem 0;
-        border: none;
-        border-radius: 0;
-        background: white;
-    }
-    
-    .pdf-viewer {
-        height: 500px;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    object.pdf-viewer {
-        height: 500px;
+        display: none;
     }
 }
 
-@media (max-width: 480px) {
-    .pdf-viewer {
-        height: 400px;
-    }
-    
-    object.pdf-viewer {
-        height: 400px;
-    }
-}
-
-/* Мобильное fallback-сообщение */
-.pdf-mobile-fallback {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+/* Мобильная секция с PDF */
+.mobile-pdf-section {
+    padding: 2rem 1rem;
+    text-align: center;
     background: #f8f9fa;
+    border-radius: 12px;
+    margin: 1rem 0 2rem 0;
+}
+
+.mobile-pdf-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.mobile-pdf-section h3 {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.mobile-pdf-info {
+    color: #5a6268;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mobile-pdf-actions {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
-    z-index: 10;
-}
-
-.pdf-mobile-fallback p {
-    color: #2c3e50;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    max-width: 300px;
-}
-
-.mobile-open-btn,
-.mobile-download-btn {
-    display: block;
-    width: 100%;
+    gap: 1rem;
     max-width: 280px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.mobile-download-btn,
+.mobile-open-btn {
+    display: block;
     padding: 1rem;
-    margin: 0.5rem 0;
-    border-radius: 8px;
+    border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
+    font-size: 1rem;
     transition: all 0.3s;
     text-align: center;
+}
+
+.mobile-download-btn {
+    background: #2ecc71;
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+}
+
+.mobile-download-btn:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
 }
 
 .mobile-open-btn {
     background: #3498db;
     color: white;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
 }
 
 .mobile-open-btn:hover {
     background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
 }
 
-.mobile-download-btn {
-    background: #2ecc71;
-    color: white;
-}
-
-.mobile-download-btn:hover {
-    background: #27ae60;
-}
-
-/* Fallback при ошибке */
-.pdf-fallback {
-    padding: 3rem;
-    text-align: center;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin: 2rem 0;
-}
-
-.pdf-fallback p {
-    color: #e74c3c;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-.fallback-options {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.fallback-btn {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.fallback-btn:first-child {
-    background: #3498db;
-    color: white;
-}
-
-.fallback-btn:first-child:hover {
-    background: #2980b9;
-}
-
-.fallback-btn.download {
-    background: #2ecc71;
-    color: white;
-}
-
-.fallback-btn.download:hover {
-    background: #27ae60;
+.mobile-pdf-note {
+    color: #95a5a6;
+    font-size: 0.85rem;
+    margin-top: 1rem;
 }
 
 /* Другие руководства */
@@ -285,64 +255,35 @@ object.pdf-viewer {
     content: "↗";
 }
 
-/* Адаптивность */
-@media (max-width: 1024px) {
-    .user-manual-page {
-        padding: 1.5rem;
+/* Адаптивность для мобильных карточек */
+@media (max-width: 768px) {
+    .other-manuals {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
     }
     
-    .manual-content {
-        padding: 1.5rem;
-    }
-    
-    .pdf-viewer {
-        height: 500px;
+    .other-manuals h3 {
+        font-size: 1.1rem;
+        text-align: center;
     }
     
     .manual-cards {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .user-manual-page {
-        padding: 1rem;
-    }
-    
-    .manual-header {
-        flex-direction: column;
-        align-items: flex-start;
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
     
-    .download-section {
-        text-align: left;
-        width: 100%;
-    }
-    
-    .download-btn {
-        display: block;
+    .manual-card {
         text-align: center;
+        padding: 1.25rem;
     }
     
-    .fallback-options {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .fallback-btn {
-        width: 100%;
-        max-width: 280px;
-        text-align: center;
+    .manual-card a {
+        justify-content: center;
     }
 }
 
+/* Очень маленькие экраны */
 @media (max-width: 480px) {
-    .user-manual-page {
-        padding: 0.75rem;
-    }
-    
     .user-manual-page h1 {
         font-size: 1.5rem;
         text-align: center;
@@ -357,42 +298,26 @@ object.pdf-viewer {
         padding: 1rem;
     }
     
-    .role-info h2 {
+    .mobile-pdf-section {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .mobile-pdf-icon {
+        font-size: 3rem;
+    }
+    
+    .mobile-pdf-section h3 {
         font-size: 1.1rem;
-        text-align: center;
     }
     
-    .role-badge {
-        display: block;
-        text-align: center;
-        margin: 0 auto;
-        width: fit-content;
+    .mobile-pdf-info {
+        font-size: 0.9rem;
     }
     
-    .pdf-viewer {
-        height: 350px;
-    }
-    
-    .pdf-fallback {
-        padding: 2rem 1rem;
-    }
-    
-    .other-manuals {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
-    }
-    
-    .manual-cards {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-    }
-    
-    .manual-card {
-        text-align: center;
-    }
-    
-    .manual-card a {
-        justify-content: center;
+    .mobile-download-btn,
+    .mobile-open-btn {
+        padding: 0.9rem;
+        font-size: 0.95rem;
     }
 }
 
@@ -401,63 +326,32 @@ object.pdf-viewer {
         font-size: 1.3rem;
     }
     
-    .pdf-viewer {
-        height: 300px;
+    .mobile-pdf-icon {
+        font-size: 2.5rem;
     }
     
-    .pdf-mobile-fallback p {
-        font-size: 0.9rem;
+    .mobile-pdf-section h3 {
+        font-size: 1rem;
     }
     
-    .mobile-open-btn,
-    .mobile-download-btn {
+    .mobile-pdf-info {
+        font-size: 0.85rem;
+    }
+    
+    .mobile-download-btn,
+    .mobile-open-btn {
         padding: 0.8rem;
         font-size: 0.9rem;
     }
 }
 
-/* Для горизонтальной ориентации */
-@media (max-width: 768px) and (orientation: landscape) {
-    .user-manual-page {
-        padding: 1rem;
-    }
-    
-    .pdf-viewer {
-        height: 350px;
-    }
-    
-    .manual-header {
-        flex-direction: row;
-        align-items: center;
-    }
-    
-    .download-section {
-        text-align: right;
-        width: auto;
-    }
-    
-    .download-btn {
-        display: inline-block;
-    }
-    
-    .manual-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Улучшения для тач-устройств */
+/* Для тач-устройств */
 @media (hover: none) and (pointer: coarse) {
-    .download-btn,
-    .mobile-open-btn,
     .mobile-download-btn,
-    .fallback-btn {
-        min-height: 44px;
+    .mobile-open-btn {
+        min-height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    
-    .manual-card {
-        cursor: pointer;
     }
 }
