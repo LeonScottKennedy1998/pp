@@ -66,64 +66,121 @@ class BackupController {
         }
     }
 
+    // async createBackup(req, res) {
+    //     try {
+    //         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    //         const filename = `backup_${timestamp}.sql`;
+    //         const filePath = path.join(BACKUP_DIR, filename);
+
+    //         // Получаем параметры подключения из pool
+    //         const client = await pool.connect();
+    //         const dbConfig = client.connectionParameters;
+    //         client.release();
+
+    //         // Формируем команду pg_dump
+    //         const pgDumpCommand = `pg_dump ` +
+    //             `-h ${dbConfig.host} ` +
+    //             `-p ${dbConfig.port} ` +
+    //             `-U ${dbConfig.user} ` +
+    //             `-d ${dbConfig.database} ` +
+    //             `-F p ` + // plain text format (SQL)
+    //             `-b ` + // include large objects
+    //             `-c ` + // include DROP commands
+    //             `-O ` + // no owner
+    //             `-x ` + // no privileges
+    //             `--if-exists ` + // use IF EXISTS for DROPs
+    //             `> "${filePath}"`;
+
+    //         // Устанавливаем переменную окружения с паролем
+    //         await execPromise(pgDumpCommand, {
+    //             env: {
+    //                 ...process.env,
+    //                 PGPASSWORD: dbConfig.password
+    //             },
+    //             shell: true
+    //         });
+
+    //         const stats = fs.statSync(filePath);
+
+    //         res.json({
+    //             message: 'Полный SQL бэкап создан',
+    //             filename,
+    //             size: `${(stats.size / 1024 / 1024).toFixed(2)} MB`,
+    //             tables: 'Все таблицы базы данных'
+    //         });
+
+    //     } catch (error) {
+    //         console.error('Ошибка создания бэкапа:', error);
+            
+    //         // Удаляем частично созданный файл в случае ошибки
+    //         const filePath = path.join(BACKUP_DIR, filename);
+    //         if (fs.existsSync(filePath)) {
+    //             fs.unlinkSync(filePath);
+    //         }
+            
+    //         res.status(500).json({ 
+    //             error: 'Ошибка создания бэкапа',
+    //             details: error.message 
+    //         });
+    //     }
+    // }
+
     async createBackup(req, res) {
-        try {
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const filename = `backup_${timestamp}.sql`;
-            const filePath = path.join(BACKUP_DIR, filename);
+    try {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const filename = `backup_${timestamp}.sql`;
+        
+        // Временный файл в /tmp (доступно для записи на Vercel)
+        const tmpFilePath = path.join('/tmp', filename);
 
-            // Получаем параметры подключения из pool
-            const client = await pool.connect();
-            const dbConfig = client.connectionParameters;
-            client.release();
+        // Получаем параметры подключения из pool
+        const client = await pool.connect();
+        const dbConfig = client.connectionParameters;
+        client.release();
 
-            // Формируем команду pg_dump
-            const pgDumpCommand = `pg_dump ` +
-                `-h ${dbConfig.host} ` +
-                `-p ${dbConfig.port} ` +
-                `-U ${dbConfig.user} ` +
-                `-d ${dbConfig.database} ` +
-                `-F p ` + // plain text format (SQL)
-                `-b ` + // include large objects
-                `-c ` + // include DROP commands
-                `-O ` + // no owner
-                `-x ` + // no privileges
-                `--if-exists ` + // use IF EXISTS for DROPs
-                `> "${filePath}"`;
+        // Формируем команду pg_dump
+        const pgDumpCommand = `pg_dump ` +
+            `-h ${dbConfig.host} ` +
+            `-p ${dbConfig.port} ` +
+            `-U ${dbConfig.user} ` +
+            `-d ${dbConfig.database} ` +
+            `-F p ` + // plain text format (SQL)
+            `-b ` + // include large objects
+            `-c ` + // include DROP commands
+            `-O ` + // no owner
+            `-x ` + // no privileges
+            `--if-exists ` + // use IF EXISTS for DROPs
+            `> "${tmpFilePath}"`;
 
-            // Устанавливаем переменную окружения с паролем
-            await execPromise(pgDumpCommand, {
-                env: {
-                    ...process.env,
-                    PGPASSWORD: dbConfig.password
-                },
-                shell: true
-            });
+        // Устанавливаем переменную окружения с паролем
+        await execPromise(pgDumpCommand, {
+            env: {
+                ...process.env,
+                PGPASSWORD: dbConfig.password
+            },
+            shell: true
+        });
 
-            const stats = fs.statSync(filePath);
+        // Читаем файл в память
+        const backupContent = fs.readFileSync(tmpFilePath, 'utf8');
+        
+        // Удаляем временный файл
+        fs.unlinkSync(tmpFilePath);
 
-            res.json({
-                message: 'Полный SQL бэкап создан',
-                filename,
-                size: `${(stats.size / 1024 / 1024).toFixed(2)} MB`,
-                tables: 'Все таблицы базы данных'
-            });
+        // Отправляем файл сразу как response
+        res.setHeader('Content-Type', 'application/sql');
+        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        res.send(backupContent);
 
-        } catch (error) {
-            console.error('Ошибка создания бэкапа:', error);
-            
-            // Удаляем частично созданный файл в случае ошибки
-            const filePath = path.join(BACKUP_DIR, filename);
-            if (fs.existsSync(filePath)) {
-                fs.unlinkSync(filePath);
-            }
-            
-            res.status(500).json({ 
-                error: 'Ошибка создания бэкапа',
-                details: error.message 
-            });
-        }
+    } catch (error) {
+        console.error('Ошибка создания бэкапа:', error);
+        
+        res.status(500).json({ 
+            error: 'Ошибка создания бэкапа',
+            details: error.message 
+        });
     }
+}
 
     async restoreBackup(req, res) {
         const { filename } = req.params;
