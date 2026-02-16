@@ -82,7 +82,6 @@ app.use('/api/performance', performanceRoutes);
 const startPerformanceMonitoring = () => {
     const monitor = new PerformanceMonitor();
     
-    // Собираем метрики использования памяти каждые 5 минут
     setInterval(() => {
         monitor.saveMemoryUsage().catch(console.error);
     }, 5 * 60 * 1000);

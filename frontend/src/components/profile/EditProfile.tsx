@@ -1,4 +1,3 @@
-// src/components/profile/EditProfile.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
@@ -37,7 +36,6 @@ const EditProfile = () => {
         confirmPassword: ''
     });
     
-    // Добавляем новую вкладку
     const [activeTab, setActiveTab] = useState<'profile' | 'password' | 'security'>('profile');
 
     useEffect(() => {
@@ -199,7 +197,6 @@ const EditProfile = () => {
             {error && <div className="error-message">{error}</div>}
             {success && <div className="success-message">{success}</div>}
 
-            {/* Обновляем табы - добавляем Security */}
             <div className="profile-tabs">
                 <button 
                     className={`tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
@@ -357,14 +354,12 @@ const EditProfile = () => {
                         </form>
                     </div>
                 ) : (
-                    // Новая вкладка Безопасность
                     <div className="security-form">
                         <div className="security-info">
                             <h3>Настройки безопасности</h3>
                             <p>Управление параметрами безопасности вашего аккаунта.</p>
                         </div>
                         
-                        {/* Добавляем компонент 2FA */}
                         <TwoFactorSettings />
                         
                         <div className="security-tips">

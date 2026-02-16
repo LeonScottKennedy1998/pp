@@ -635,10 +635,8 @@ const handleAddProduct = async (e: React.FormEvent) => {
                 )}
             </div>
 
-            {/* Отображение контента в зависимости от активной вкладки */}
             {activeTab === 'products' ? (
                 <>
-                    {/* Таблица товаров */}
                     <div className="products-table-container">
                         <table className="merchandiser-table">
                             <thead>
@@ -716,7 +714,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
 
                 
             ) : activeTab === 'discounts' ? (
-                /* Вкладка скидок */
                 <div className="discounts-container">
                     <div className="section-header">
                         <h2>Управление скидками</h2>
@@ -823,7 +820,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                     </div>
                 </div>
             ) : (
-                /* Вкладка правил */
                     <div className="rules-container">
                         <div className="section-header">
                             <h2>Управление правилами скидок</h2>
@@ -833,7 +829,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                         <div className="rules-grid">
                             {rules.map(rule => (
                                 <div key={rule.rule_id} className="rule-card">
-                                    {/* Хедер с заголовком и основными статусами */}
                                     <div className="rule-header">
                                         <h3>{rule.rule_name}</h3>
                                         <div className="header-status">
@@ -848,7 +843,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                                         </div>
                                     </div>
                                     
-                                    {/* Основная информация - чисто и понятно */}
                                     <div className="rule-info">
                                         <div className="info-item">
                                             <span className="info-label">Тип:</span>
@@ -877,7 +871,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                                         </div>
                                     </div>
                                     
-                                    {/* Дополнительная информация - компактно */}
                                     <div className="rule-meta">
                                         {rule.last_applied && (
                                             <div className="meta-item">
@@ -893,7 +886,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                                         )}
                                     </div>
                                     
-                                    {/* Кнопки - выровненные и понятные */}
                                     <div className="rule-actions">
                                         <button 
                                             onClick={() => handleApplyRule(rule.rule_id)}
@@ -1090,7 +1082,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                 </div>
             )}
 
-            {/* Модалка для установки скидки */}
             {showDiscountModal && selectedProductForDiscount && (
                 <div className="modal-overlay">
                     <div className="modal">
@@ -1167,7 +1158,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                 </div>
             )}
 
-            {/* Модалка для создания правила */}
             {showRuleForm && (
                 <div className="modal-overlay">
                     <div className="modal wide-modal">
@@ -1219,7 +1209,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                                 </div>
                             </div>
                             
-                            {/* Условия в зависимости от типа правила */}
                             {ruleForm.rule_type === 'category' && (
                                 <div className="form-group">
                                     <label>Категория</label>
@@ -1362,7 +1351,6 @@ const handleAddProduct = async (e: React.FormEvent) => {
                 </div>
             )}
 
-            {/* Модалка предпросмотра правила */}
             {showPreviewModal && previewData && (
                 <div className="modal-overlay">
                     <div className="modal wide-modal">

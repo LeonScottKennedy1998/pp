@@ -8,7 +8,6 @@ const OrderSuccess = () => {
     const [countdown, setCountdown] = useState(10);
 
     useEffect(() => {
-        // Таймер обратного отсчета
         const countdownInterval = setInterval(() => {
             setCountdown(prev => {
                 if (prev <= 1) {

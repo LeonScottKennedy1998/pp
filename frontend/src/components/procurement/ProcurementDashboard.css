@@ -20,7 +20,6 @@
     flex-wrap: wrap;
 }
 
-/* Suppliers Grid */
 .suppliers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -79,7 +78,6 @@
     gap: 0.75rem;
 }
 
-/* Orders Container */
 .orders-container {
     display: grid;
     grid-template-columns: 350px 1fr;
@@ -138,7 +136,7 @@
 .order-item {
     background: white;
     border: 1px solid #e9ecef;
-    border-radius: 8px; /* Уменьшаем радиус */
+    border-radius: 8px;
     padding: 1rem 1.2rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -156,12 +154,12 @@
 .order-item.selected {
     border-color: #3498db;
     background: #e8f4fc;
-    border-left: 4px solid #3498db; /* Добавляем индикатор выделения слева */
+    border-left: 4px solid #3498db;
 }
 
 .order-item-header {
     display: flex;
-    flex-direction: column; /* Меняем на колонку */
+    flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 0.75rem;
 }
@@ -231,7 +229,6 @@
     flex-wrap: wrap;
 }
 
-/* Status Badge */
 .status-badge {
     display: inline-block;
     padding: 0.4rem 1rem;
@@ -285,7 +282,6 @@
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
 }
 
-/* Tables */
 .items-table, .order-items-table, .procurement-table {
     width: 100%;
     border-collapse: collapse;
@@ -323,7 +319,6 @@
     font-size: 1.1rem;
 }
 
-/* Forms */
 .add-item-form {
     background: #f8f9fa;
     padding: 1.5rem;
@@ -348,7 +343,6 @@
     align-items: end;
 }
 
-/* Buttons */
 .remove-btn {
     background: #e74c3c;
     color: white;
@@ -447,7 +441,6 @@
     background: #2980b9;
 }
 
-/* Header Actions */
 .header-actions {
     display: flex;
     gap: 1rem;
@@ -495,7 +488,6 @@
     box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
 }
 
-/* Analytics Summary */
 .analytics-summary {
     margin: 1.5rem 0;
 }
@@ -566,7 +558,6 @@
     font-size: 0.85rem;
 }
 
-/* Controls */
 .controls-row {
     display: flex;
     justify-content: space-between;
@@ -647,7 +638,6 @@
     cursor: pointer;
 }
 
-/* Recommendations */
 .recommendations-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -695,7 +685,6 @@
     font-weight: 600;
 }
 
-/* Stock Indicators */
 .stock-badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -780,7 +769,6 @@
     font-size: 0.9rem;
 }
 
-/* Stats */
 .stats-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -886,7 +874,6 @@
     color: #7f8c8d;
 }
 
-/* Info Cards */
 .info-card {
     background: #f8f9fa;
     padding: 1.5rem;
@@ -915,7 +902,6 @@
     display: inline-block;
 }
 
-/* Order Items */
 .order-items-card {
     margin-top: 2rem;
     padding-top: 2rem;
@@ -931,7 +917,6 @@
     border-bottom: 2px solid #f0f0f0;
 }
 
-/* Summary Section */
 .summary-section {
     background: white;
     border-radius: 12px;
@@ -966,7 +951,6 @@
     font-size: 0.9rem;
 }
 
-/* Tips Section */
 .tips-section {
     background: white;
     border-radius: 12px;
@@ -1013,7 +997,6 @@
     font-size: 0.9rem;
 }
 
-/* Product Info */
 .product-info {
     display: flex;
     flex-direction: column;
@@ -1047,7 +1030,6 @@
     gap: 0.5rem;
 }
 
-/* Orders Filters and Pagination */
 .orders-filters {
     display: flex;
     justify-content: space-between;
@@ -1171,7 +1153,6 @@
     box-shadow: none;
 }
 
-/* Стили для заблокированной кнопки */
 .header-actions .secondary-btn:disabled {
     background: #bdc3c7;
     cursor: not-allowed;
@@ -1189,7 +1170,6 @@
 }
 
 
-/* Media Queries */
 @media (max-width: 1200px) {
     .orders-container {
         grid-template-columns: 1fr;
@@ -1468,15 +1448,15 @@
 }
 
 .info-card p strong {
-    min-width: 100px; /* Фиксированная ширина для всех заголовков */
+    min-width: 100px;
     color: #2c3e50;
 }
 
 .info-card p .status-badge-inline {
-    margin-left: 0 !important; /* Убираем отступ слева */
+    margin-left: 0 !important;
     display: inline-block;
     vertical-align: middle;
-    white-space: nowrap; /* Запрещаем перенос текста в бейдже */
+    white-space: nowrap;
 }
 
     .remove-icon-btn {

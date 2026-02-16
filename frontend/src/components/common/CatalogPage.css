@@ -1,4 +1,3 @@
-/* src/pages/CatalogPage.css */
 .catalog-page {
     max-width: 1400px;
     margin: 0 auto;
@@ -150,7 +149,6 @@
     border: 1px solid #f5c6cb;
 }
 
-/* Мобильные устройства (до 768px) */
 @media (max-width: 768px) {
     .catalog-page {
         padding: 1rem;
@@ -209,7 +207,6 @@
     }
 }
 
-/* Мобильные телефоны (до 480px) */
 @media (max-width: 480px) {
     .catalog-page h1 {
         font-size: 1.5rem;
@@ -247,7 +244,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .catalog-page {
         padding: 0.75rem;
@@ -267,7 +263,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -279,7 +274,6 @@
     }
 }
 
-/* Для улучшения UX на сенсорных экранах */
 @media (max-width: 768px) {
     .category-btn,
     .clear-filters-btn,
@@ -288,11 +282,10 @@
     }
     
     input, select {
-        font-size: 16px !important; /* Предотвращает зум на iOS */
+        font-size: 16px !important;
     }
 }
 
-/* Улучшение отображения для планшетов */
 @media (min-width: 769px) and (max-width: 1024px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -308,7 +301,6 @@
     }
 }
 
-/* Поддержка для больших экранов */
 @media (min-width: 1600px) {
     .products-grid {
         grid-template-columns: repeat(5, 1fr);

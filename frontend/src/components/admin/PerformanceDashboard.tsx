@@ -12,8 +12,8 @@ const PerformanceDashboard = () => {
         fetchDashboardStats();
         
         if (autoRefresh) {
-            const interval = setInterval(fetchRealTimeMetrics, 10000); // Каждые 10 секунд
-            return () => clearInterval(interval);
+            const interval = setInterval(fetchRealTimeMetrics, 10000);
+                        return () => clearInterval(interval);
         }
     }, [autoRefresh]);
 
@@ -95,7 +95,6 @@ const PerformanceDashboard = () => {
                 </div>
             </div>
 
-            {/* Системная информация */}
             <div className="system-info-section">
                 <h2>🖥️ Системная информация</h2>
                 <div className="system-grid">
@@ -122,7 +121,6 @@ const PerformanceDashboard = () => {
                 </div>
             </div>
 
-            {/* Метрики в реальном времени */}
             {realTimeData && (
                 <div className="realtime-section">
                     <h2>⚡ Метрики в реальном времени</h2>
@@ -158,7 +156,6 @@ const PerformanceDashboard = () => {
                 </div>
             )}
 
-            {/* Статистика по запросам */}
             <div className="requests-section">
                 <h2>📊 Статистика запросов (24ч)</h2>
                 <div className="requests-grid">
@@ -182,7 +179,6 @@ const PerformanceDashboard = () => {
                 </div>
             </div>
 
-            {/* Статистика по email */}
             {stats.emailStats && Object.keys(stats.emailStats).length > 0 && (
                 <div className="email-stats-section">
                     <h2>📧 Статистика отправки email (24ч)</h2>
@@ -218,7 +214,6 @@ const PerformanceDashboard = () => {
                 </div>
             )}
 
-            {/* Медленные запросы */}
             {stats.slowRequests && stats.slowRequests.length > 0 && (
                 <div className="slow-requests-section">
                     <h2>🐌 Самые медленные запросы</h2>
@@ -245,7 +240,6 @@ const PerformanceDashboard = () => {
                 </div>
             )}
 
-            {/* Популярные endpoints */}
             {stats.popularEndpoints && stats.popularEndpoints.length > 0 && (
                 <div className="popular-endpoints-section">
                     <h2>🔥 Популярные endpoints</h2>

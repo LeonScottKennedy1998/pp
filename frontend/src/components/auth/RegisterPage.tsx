@@ -1,4 +1,3 @@
-// src/components/auth/RegisterPage.tsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_URLS, getAuthHeaders } from '../../config/api';
@@ -84,7 +83,7 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <div className="page auth-page"> {/* Добавляем класс auth-page */}
+        <div className="page auth-page">
             <div className="auth-container">
                 <div className="auth-header">
                     <h1>Регистрация</h1>

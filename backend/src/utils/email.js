@@ -5,16 +5,16 @@ const monitor = new PerformanceMonitor();
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
-    secure: false, // ВАЖНО: false для теста
+    secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD
     },
     tls: {
-        rejectUnauthorized: false,  // не проверять сертификат
-        ciphers: 'SSLv3'  // принудительно старый протокол
+        rejectUnauthorized: false,
+        ciphers: 'SSLv3'
     },
-    requireTLS: false,  // не требовать TLS
+    requireTLS: false,
     connectionTimeout: 30000,
     greetingTimeout: 30000,
     socketTimeout: 60000
@@ -28,25 +28,22 @@ transporter.verify((error, success) => {
     }
 });
 
-// Общая функция для отправки email с метриками
 const sendEmailWithMetrics = async (mailOptions) => {
-    const startTime = process.hrtime(); // Начинаем измерение
+    const startTime = process.hrtime();
     
     try {
         console.log(`📧 Попытка отправки email на: ${mailOptions.to}`);
         console.log(`📧 Тема письма: ${mailOptions.subject}`);
         
         const info = await transporter.sendMail(mailOptions);
-        const endTime = process.hrtime(startTime); // Завершаем измерение
+        const endTime = process.hrtime(startTime);
         
-        // Вычисляем время в миллисекундах
         const durationMs = (endTime[0] * 1000) + (endTime[1] / 1000000);
         
         console.log(`✅ Email отправлен успешно за ${durationMs.toFixed(2)} мс`);
         console.log(`📧 ID сообщения: ${info.messageId}`);
         console.log(`📧 Ответ сервера: ${info.response}`);
         
-        // Сохраняем метрику успешной отправки
         await monitor.saveEmailSendTime(mailOptions.to, durationMs, true);
         
         return {
@@ -66,7 +63,6 @@ const sendEmailWithMetrics = async (mailOptions) => {
         console.error(`📧 Код ошибки: ${error.code || 'N/A'}`);
         console.error(`📧 Команда SMTP: ${error.command || 'N/A'}`);
         
-        // Сохраняем метрику неудачной отправки
         await monitor.saveEmailSendTime(mailOptions.to, durationMs, false);
         
         return {
@@ -222,93 +218,10 @@ const sendTwoFactorEmail = async (email, code) => {
     return result.success;
 };
 
-// Функция для отправки тестового email (для проверки производительности)
-const sendTestEmail = async (toEmail) => {
-    const mailOptions = {
-        from: process.env.EMAIL_FROM,
-        to: toEmail,
-        subject: 'Тестовое письмо - Проверка производительности',
-        text: `Тестовое письмо отправлено ${new Date().toLocaleString()} для проверки скорости отправки email.`,
-        html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <h2 style="color: #2c3e50;">Тестовое письмо</h2>
-                <p>Это тестовое письмо отправлено для проверки производительности системы отправки email.</p>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
-                    <p><strong>Время отправки:</strong> ${new Date().toLocaleString()}</p>
-                    <p><strong>Цель:</strong> Измерение скорости доставки email</p>
-                </div>
-                <p style="color: #7f8c8d; font-size: 12px;">
-                    Это автоматическое тестовое сообщение.
-                </p>
-            </div>
-        `
-    };
-    
-    console.log(`📧 === Отправка тестового письма ===`);
-    console.log(`📧 Получатель: ${toEmail}`);
-    
-    const result = await sendEmailWithMetrics(mailOptions);
-    
-    console.log(`📧 Результат теста: ${result.success ? 'Успешно' : 'Ошибка'}`);
-    console.log(`📧 Время отправки: ${result.durationMs.toFixed(2)} мс`);
-    
-    return result;
-};
 
-// Функция для массовой отправки тестовых писем (для проверки нагрузки)
-const sendBulkTestEmails = async (emails, delay = 1000) => {
-    console.log(`📧 === Начало массовой отправки тестовых писем ===`);
-    console.log(`📧 Количество получателей: ${emails.length}`);
-    console.log(`📧 Задержка между отправками: ${delay} мс`);
-    
-    const results = [];
-    const startTime = Date.now();
-    
-    for (let i = 0; i < emails.length; i++) {
-        console.log(`📧 Отправка ${i + 1}/${emails.length} на ${emails[i]}`);
-        
-        const result = await sendTestEmail(emails[i]);
-        results.push({
-            email: emails[i],
-            success: result.success,
-            durationMs: result.durationMs,
-            timestamp: new Date().toISOString()
-        });
-        
-        // Задержка между отправками (если нужно)
-        if (i < emails.length - 1 && delay > 0) {
-            await new Promise(resolve => setTimeout(resolve, delay));
-        }
-    }
-    
-    const totalTime = Date.now() - startTime;
-    const successful = results.filter(r => r.success).length;
-    const failed = results.filter(r => !r.success).length;
-    const avgTime = results.reduce((sum, r) => sum + r.durationMs, 0) / results.length;
-    
-    console.log(`📧 === Итоги массовой отправки ===`);
-    console.log(`📧 Всего отправлено: ${results.length} писем`);
-    console.log(`📧 Успешно: ${successful}`);
-    console.log(`📧 Ошибки: ${failed}`);
-    console.log(`📧 Общее время: ${totalTime} мс`);
-    console.log(`📧 Среднее время на письмо: ${avgTime.toFixed(2)} мс`);
-    console.log(`📧 Пропускная способность: ${(results.length / (totalTime / 1000)).toFixed(2)} писем/сек`);
-    
-    return {
-        total: results.length,
-        successful,
-        failed,
-        totalTime,
-        avgTime: avgTime.toFixed(2),
-        throughput: (results.length / (totalTime / 1000)).toFixed(2),
-        results
-    };
-};
 
 module.exports = { 
     sendResetEmail, 
     sendTwoFactorEmail,
-    sendTestEmail,
-    sendBulkTestEmails,
-    transporter  // экспортируем transporter для возможного использования
+    transporter
 };

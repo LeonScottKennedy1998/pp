@@ -245,7 +245,6 @@ const UserManagement = () => {
                 </button>
             </div>
 
-            {/* Форма добавления/редактирования */}
             {(showAddForm || editingUser) && (
                 <div className="modal-overlay">
                     <div className="modal">

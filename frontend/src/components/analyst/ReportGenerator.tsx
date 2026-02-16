@@ -347,7 +347,6 @@ const ReportGenerator = () => {
                         )}
                     </div>
                     
-                    {/* Кнопка теперь снаружи контейнера с таблицей */}
                     <div className="report-actions">
                         <button 
                             className="secondary-btn"

@@ -1,6 +1,4 @@
-/* components/orders/OrdersPage.css */
 
-/* Обертка для всей страницы заказов */
 .orders-page {
     min-height: 100vh;
     background: #f8f9fa;
@@ -23,7 +21,6 @@
     font-weight: 700;
 }
 
-/* Обнуляем конфликтующие стили */
 .orders-page .orders-list {
     margin-top: 2rem;
     display: block !important;
@@ -34,7 +31,6 @@
     width: 100%;
 }
 
-/* Основные стили для списка заказов */
 .orders-page .order-card {
     background: white;
     border-radius: 12px;
@@ -161,7 +157,6 @@
     font-size: 1.2rem;
 }
 
-/* Пустые заказы */
 .orders-page .empty-orders {
     text-align: center;
     padding: 3rem;
@@ -187,7 +182,6 @@
     font-size: 1rem;
 }
 
-/* Загрузка и ошибки */
 .orders-page .loading {
     text-align: center;
     padding: 3rem;
@@ -204,9 +198,7 @@
     border-left: 4px solid #c0392b;
 }
 
-/* Медиа-запросы */
 
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .orders-page .page {
         padding: 1.5rem;
@@ -217,7 +209,6 @@
     }
 }
 
-/* Мобильные устройства (до 768px) */
 @media (max-width: 768px) {
     .orders-page .page {
         padding: 1rem;
@@ -297,7 +288,6 @@
     }
 }
 
-/* Маленькие мобильные (до 480px) */
 @media (max-width: 480px) {
     .orders-page {
         padding: 0;
@@ -363,7 +353,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .orders-page .page {
         padding: 0.5rem;
@@ -409,7 +398,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .orders-page .page {
         padding: 1rem;
@@ -429,14 +417,12 @@
     }
 }
 
-/* Фикс для Safari iOS */
 @supports (-webkit-touch-callout: none) {
     .orders-page {
         height: -webkit-fill-available;
     }
 }
 
-/* Фикс для предотвращения горизонтального скролла */
 .orders-page,
 .orders-page .page,
 .orders-page .orders-list,

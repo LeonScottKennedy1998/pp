@@ -491,9 +491,7 @@
 
 
 
-/* ==================== МЕДИА-ЗАПРОСЫ ДЛЯ ADMIN DASHBOARD ==================== */
 
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .admin-dashboard {
         padding: 0.75rem;
@@ -529,7 +527,6 @@
     }
 }
 
-/* Планшеты в портретной ориентации (до 768px) */
 @media (max-width: 768px) {
     
     .admin-dashboard {
@@ -567,7 +564,6 @@
         background: #f8f9fa;
     }
     
-    /* Таблицы */
     .admin-table {
         display: block;
         overflow-x: auto;
@@ -595,7 +591,6 @@
         padding-right: 0.75rem;
     }
     
-    /* Кнопки действий в таблице */
     .action-buttons {
         flex-direction: row;
         flex-wrap: wrap;
@@ -607,13 +602,13 @@
     .admin-table td:nth-child(2) {
         position: sticky;
         left: 0;
-        width: 140px; /* можно подрегулировать */
+        width: 140px;
         max-width: 140px;
         min-width: 120px;
-        overflow: visible; /* чтобы перенос работал */
-        white-space: normal; /* разрешаем перенос */
-        word-break: break-word; /* переносим длинные слова */
-        background: #fff; /* цвет ячейки */
+        overflow: visible;
+        white-space: normal;
+        word-break: break-word;
+        background: #fff;
         color: #2c3e50;
         z-index: 2;
         box-shadow: 2px 0 5px -2px rgba(0,0,0,0.2);
@@ -632,14 +627,12 @@
         font-size: 0.8rem;
     }
     
-    /* Фильтры */
     .filters-panel {
         grid-template-columns: 1fr;
         gap: 0.75rem;
         padding: 1rem;
     }
     
-    /* Пагинация */
     .pagination {
         flex-direction: column;
         gap: 0.75rem;
@@ -652,7 +645,6 @@
         text-align: center;
     }
     
-    /* Модальные окна */
     .modal {
         width: 95% !important;
         max-height: 90vh !important;
@@ -685,14 +677,12 @@
         padding: 0.75rem;
     }
     
-    /* Роль-бейджи */
     .role-badge {
         min-width: 80px;
         padding: 0.2rem 0.5rem;
         font-size: 0.8rem;
     }
     
-    /* Статус-бейджи */
     .status-badge,
     .action-badge {
         min-width: 90px;
@@ -700,7 +690,6 @@
         font-size: 0.8rem;
     }
     
-    /* Формы */
     .form-row {
         grid-template-columns: 1fr !important;
         gap: 0.75rem;
@@ -713,7 +702,6 @@
     }
 }
 
-/* Мобильные телефоны (до 480px) */
 @media (max-width: 480px) {
     .admin-dashboard {
         padding: 0.25rem;
@@ -732,12 +720,10 @@
         font-size: 0.85rem;
     }
     
-    /* Скрываем иконки в табах на маленьких экранах */
     .tab-btn span:first-child {
         display: none;
     }
     
-    /* Таблицы */
     .admin-table th,
     .admin-table td {
         padding: 0.5rem;
@@ -745,7 +731,6 @@
         min-width: 100px;
     }
     
-    /* Кнопки */
     .action-buttons button {
         flex: 1;
         min-width: 100px;
@@ -753,7 +738,6 @@
         font-size: 0.75rem;
     }
     
-    /* Статистика */
     .stat-card {
         padding: 1rem;
     }
@@ -773,7 +757,6 @@
         min-width: 30px;
     }
     
-    /* Модальные окна */
     .modal {
         padding: 1rem !important;
     }
@@ -792,7 +775,6 @@
         width: 100%;
     }
     
-    /* Info cards */
     .info-card,
     .warning-card {
         padding: 1rem;
@@ -810,7 +792,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .dashboard-header h1 {
         font-size: 1.3rem;
@@ -857,7 +838,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .admin-dashboard {
         padding: 0.5rem;

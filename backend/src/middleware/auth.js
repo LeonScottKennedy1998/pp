@@ -9,11 +9,9 @@ const authMiddleware = async (req, res, next) => {
             return res.status(401).json({ error: 'Требуется авторизация' });
         }
         
-        // Верифицируем токен
         const decoded = verifyToken(token);
         console.log('🔐 Декодированный токен:', decoded);
         
-        // Проверяем, активен ли пользователь в базе данных
         try {
             const userResult = await pool.query(
                 'SELECT is_active, user_id FROM users WHERE user_id = $1',
@@ -30,11 +28,9 @@ const authMiddleware = async (req, res, next) => {
             
             const user = userResult.rows[0];
             
-            // Если пользователь заблокирован - отклоняем запрос
             if (!user.is_active) {
                 console.log('🚫 Заблокированный пользователь пытается выполнить запрос:', decoded.email);
                 
-                // Логируем попытку доступа заблокированного пользователя
                 await pool.query(
                     `INSERT INTO audit_log 
                      (user_id, audit_action, audit_table, new_data)
@@ -55,19 +51,15 @@ const authMiddleware = async (req, res, next) => {
             
         } catch (dbError) {
             console.error('❌ Ошибка проверки статуса пользователя в БД:', dbError);
-            // В случае ошибки БД все равно пропускаем запрос, 
-            // но логируем проблему
             console.log('⚠️ Пропускаем запрос из-за ошибки БД');
         }
         
-        // Если все проверки пройдены - продолжаем
         req.user = decoded;
         next();
         
     } catch (error) {
         console.error('❌ Ошибка верификации токена:', error.message);
         
-        // Проверяем тип ошибки JWT
         if (error.name === 'TokenExpiredError') {
             return res.status(401).json({ 
                 error: 'Срок действия токена истек',

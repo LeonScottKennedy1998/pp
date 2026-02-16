@@ -1,4 +1,3 @@
-/* PerformanceDashboard.css */
 .performance-dashboard {
     padding: 20px;
     background: #f8f9fa;
@@ -44,7 +43,6 @@
     font-size: 14px;
 }
 
-/* Grid layouts */
 .system-grid, .realtime-grid, .requests-grid, .email-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -90,7 +88,6 @@
     color: #e74c3c;
 }
 
-/* Tables */
 .slow-requests-table, .endpoints-table {
     width: 100%;
     background: white;
@@ -117,7 +114,6 @@
     font-weight: bold;
 }
 
-/* Sections */
 .system-info-section, .realtime-section, .requests-section, 
 .email-stats-section, .slow-requests-section, .popular-endpoints-section {
     background: white;
@@ -152,9 +148,7 @@
     color: #e74c3c;
 }
 
-/* ==================== МЕДИА-ЗАПРОСЫ ДЛЯ PERFORMANCE DASHBOARD ==================== */
 
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .performance-dashboard {
         padding: 1rem;
@@ -181,7 +175,6 @@
     }
 }
 
-/* Планшеты в портретной ориентации (до 768px) */
 @media (max-width: 768px) {
     .performance-dashboard {
         padding: 0.5rem;
@@ -210,7 +203,6 @@
         font-size: 0.85rem;
     }
     
-    /* Grid layouts - все в 1 колонку для мобильных */
     .system-grid,
     .realtime-grid,
     .requests-grid,
@@ -219,7 +211,6 @@
         gap: 0.75rem;
     }
     
-    /* Карточки */
     .info-card,
     .metric-card,
     .stat-card,
@@ -251,7 +242,6 @@
         word-break: break-word;
     }
     
-    /* Статистика внутри карточек */
     .stat-details {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -267,7 +257,6 @@
         text-align: center;
     }
     
-    /* Секции */
     .system-info-section,
     .realtime-section,
     .requests-section,
@@ -292,7 +281,6 @@
         margin-bottom: 1rem;
     }
     
-    /* Таблицы с горизонтальным скроллом */
     .table-wrapper {
         width: 100%;
         overflow-x: auto;
@@ -323,7 +311,6 @@
     }
 }
 
-/* Мобильные телефоны (до 480px) */
 @media (max-width: 480px) {
     .performance-dashboard {
         padding: 0.25rem;
@@ -355,7 +342,6 @@
         text-align: center;
     }
     
-    /* Карточки */
     .info-card,
     .metric-card,
     .stat-card,
@@ -381,7 +367,6 @@
         margin: 0.5rem 0;
     }
     
-    /* Статистика внутри карточек */
     .stat-details {
         grid-template-columns: 1fr;
         gap: 4px;
@@ -402,7 +387,6 @@
         margin-right: 8px;
     }
     
-    /* Секции */
     .system-info-section,
     .realtime-section,
     .requests-section,
@@ -424,7 +408,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .dashboard-header h1 {
         font-size: 1.2rem;
@@ -461,7 +444,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .dashboard-header {
         flex-direction: row;

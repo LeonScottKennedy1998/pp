@@ -151,7 +151,7 @@ const HomePage: React.FC<HomePageProps> = ({ user, onLogout }) => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         marginTop: '24px',
-                        flexWrap: 'wrap' /* на мобилках перенесутся */
+                        flexWrap: 'wrap'
                     }}>
                         <Link to="/register" style={{ flex: '0 1 auto' }}>
                             <button className="cta-button" style={{

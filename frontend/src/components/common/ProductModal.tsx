@@ -1,4 +1,3 @@
-// src/components/common/ProductModal.tsx
 import React from 'react';
 import { Product } from '../../types/product';
 import './ProductModal.css';

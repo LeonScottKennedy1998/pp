@@ -578,7 +578,6 @@ const OrderManagement = () => {
                 </div>
             </div>
 
-            {/* Модалка создания заявки */}
             {showCreateForm && (
                 <div className="modal-overlay">
                     <div className="modal wide-modal">

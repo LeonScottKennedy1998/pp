@@ -554,9 +554,7 @@
     gap: 0.5rem;
 }
 
-/* Медиа-запросы для карточек товаров */
 
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .product-card {
         border-radius: 10px;
@@ -597,7 +595,6 @@
     }
 }
 
-/* Планшеты (до 768px) */
 @media (max-width: 768px) {
     .product-card {
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -637,7 +634,6 @@
         min-height: 44px;
     }
     
-    /* Стили для списка на мобильных */
     .product-card.list {
         flex-direction: column;
         gap: 1rem;
@@ -649,7 +645,6 @@
     }
 }
 
-/* Мобильные телефоны (до 480px) */
 @media (max-width: 480px) {
     .product-card {
         border-radius: 8px;
@@ -703,7 +698,6 @@
         font-size: 0.85rem;
     }
     
-    /* Адаптивные кнопки */
     .add-to-cart-btn {
         font-size: 0.9rem;
         padding: 0.5rem;
@@ -711,7 +705,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .product-image {
         height: 120px;
@@ -738,7 +731,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .product-card {
         max-width: 100%;
@@ -760,7 +752,6 @@
     }
 }
 
-/* Улучшения для сенсорных экранов */
 @media (max-width: 768px) {
     .product-card {
         -webkit-tap-highlight-color: rgba(0,0,0,0.05);
@@ -777,14 +768,12 @@
         cursor: pointer;
     }
     
-    /* Увеличиваем зону клика для кнопок */
     button {
         min-height: 44px;
-        font-size: 16px; /* Предотвращает зум на iOS */
+        font-size: 16px;
     }
 }
 
-/* Анимации для мобильных */
 @media (max-width: 768px) {
     .product-card {
         animation: cardAppear 0.3s ease;
@@ -802,7 +791,6 @@
     }
 }
 
-/* Модальное окно на мобильных */
 @media (max-width: 768px) {
     .modal-content {
         max-height: 85vh;
@@ -837,7 +825,6 @@
     }
 }
 
-/* Фикс для Safari iOS */
 @supports (-webkit-touch-callout: none) {
     @media (max-width: 768px) {
         .product-card {
@@ -853,11 +840,11 @@
 
 @media (min-width: 769px) {
     .product-card {
-        min-height: 420px; /* Фиксируем минимальную высоту */
+        min-height: 420px;
     }
     
     .product-card .product-description {
-        min-height: 80px; /* Фиксируем высоту описания */
+        min-height: 80px;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 3;
@@ -865,7 +852,6 @@
     }
 }
 
-/* Для мобильных устройств */
 @media (max-width: 768px) {
     .product-card {
         min-height: auto;
@@ -877,7 +863,6 @@
     }
 }
 
-/* Исправление для изображений */
 .product-image {
     width: 100%;
     height: 200px;
@@ -887,16 +872,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* Добавить это */
+    flex-shrink: 0;
 }
 
 .product-card.list .product-image {
     width: 200px;
     height: 200px;
-    flex-shrink: 0; /* Добавить это */
+    flex-shrink: 0;
 }
 
-/* Исправление для грида на разных размерах экрана */
+
 @media (max-width: 1024px) {
     .products-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

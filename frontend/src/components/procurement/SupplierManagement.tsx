@@ -206,7 +206,6 @@ const SupplierManagement = () => {
                 </div>
             )}
 
-            {/* Модалка формы */}
             {showForm && (
                 <div className="modal-overlay">
                     <div className="modal">

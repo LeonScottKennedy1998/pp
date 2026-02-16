@@ -6,10 +6,9 @@ const crypto = require('crypto');
 const { sendTwoFactorEmail } = require('../utils/email');
 
 const generateSixDigitCode = () => {
-    // Генерируем случайное число от 100000 до 999999
     const min = 100000;
     const max = 999999;
-    const randomBytes = crypto.randomBytes(4); // 4 байта = 32 бита
+    const randomBytes = crypto.randomBytes(4);
     const randomNumber = randomBytes.readUInt32BE(0);
     const code = min + (randomNumber % (max - min + 1));
     return code.toString();
@@ -105,7 +104,6 @@ async login(req, res) {
         
         const user = result.rows[0];
         
-        // Проверка на блокировку пользователя
         if (!user.is_active) {
             console.log('🚫 Заблокированный пользователь пытается войти:', email);
             return res.status(403).json({ 
@@ -122,16 +120,13 @@ async login(req, res) {
             });
         }
         
-        // Логика 2FA
         if (user.two_factor_enabled) {
             console.log('🔐 2FA включена для пользователя:', email);
             
-            // Если код не предоставлен - отправляем его
             if (!twoFactorCode) {
-                // Генерируем 6-значный код
                 const code = generateSixDigitCode();
 
-                const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 минут
+                const expires = new Date(Date.now() + 10 * 60 * 1000);
                 
                 await pool.query(
                     `UPDATE users 
@@ -140,7 +135,6 @@ async login(req, res) {
                     [code, expires, user.user_id]
                 );
                 
-                // Отправляем email
                 setImmediate(async () => {
                 try {
                     await sendTwoFactorEmail(user.email, code);
@@ -160,10 +154,8 @@ async login(req, res) {
                 });
             }
             
-            // Если код предоставлен - проверяем его
             console.log('🔐 Проверка кода 2FA для пользователя:', user.user_id);
             
-            // Проверяем существует ли пользователь с таким кодом
             const twoFactorCheck = await pool.query(
                 `SELECT two_factor_code, two_factor_expires 
                  FROM users 
@@ -180,7 +172,6 @@ async login(req, res) {
             
             const twoFactorData = twoFactorCheck.rows[0];
             
-            // Проверяем срок действия кода
             if (new Date() > new Date(twoFactorData.two_factor_expires)) {
                 console.log('❌ Срок действия кода истёк');
                 return res.status(401).json({ 
@@ -188,7 +179,6 @@ async login(req, res) {
                 });
             }
             
-            // Очищаем код после успешной проверки
             await pool.query(
                 `UPDATE users 
                  SET two_factor_code = NULL, two_factor_expires = NULL
@@ -199,7 +189,6 @@ async login(req, res) {
             console.log('✅ Код 2FA подтверждён');
         }
         
-        // Если 2FA выключена или код подтверждён - генерируем токен
         let decryptedFirstName = '';
         let decryptedLastName = '';
         let decryptedPatronymic = '';
@@ -250,11 +239,9 @@ async enableTwoFactor(req, res) {
     try {
         const userId = req.user.userId;
         
-        // Генерируем код
         const verificationCode = crypto.randomInt(100000, 999999).toString();
         const expires = new Date(Date.now() + 10 * 60 * 1000);
         
-        // Сохраняем код в БД
         await pool.query(
             `UPDATE users 
              SET two_factor_code = $1, 
@@ -263,7 +250,6 @@ async enableTwoFactor(req, res) {
             [verificationCode, expires, userId]
         );
         
-        // Получаем email пользователя
         const userResult = await pool.query(
             'SELECT email FROM users WHERE user_id = $1',
             [userId]
@@ -312,7 +298,6 @@ async verifyTwoFactorSetup(req, res) {
             });
         }
         
-        // Проверяем код
         const result = await pool.query(
             `SELECT two_factor_code, two_factor_expires 
              FROM users 
@@ -328,14 +313,12 @@ async verifyTwoFactorSetup(req, res) {
         
         const twoFactorData = result.rows[0];
         
-        // Проверяем срок действия
         if (new Date() > new Date(twoFactorData.two_factor_expires)) {
             return res.status(401).json({ 
                 error: 'Срок действия кода истёк' 
             });
         }
         
-        // Включаем 2FA
         await pool.query(
             `UPDATE users 
              SET two_factor_enabled = true,
@@ -345,7 +328,6 @@ async verifyTwoFactorSetup(req, res) {
             [userId]
         );
         
-        // Логируем действие
         await pool.query(
             `INSERT INTO audit_log 
              (user_id, audit_action, audit_table, table_id, new_data)
@@ -377,7 +359,6 @@ async disableTwoFactor(req, res) {
             [userId]
         );
         
-        // Логируем действие
         await pool.query(
             `INSERT INTO audit_log 
              (user_id, audit_action, audit_table, table_id, new_data)
@@ -402,7 +383,6 @@ async resendTwoFactorCode(req, res) {
         
         let queryUserId = userId;
         
-        // Если userId не предоставлен, ищем по email
         if (!queryUserId && email) {
             const userResult = await pool.query(
                 'SELECT user_id FROM users WHERE email = $1',
@@ -424,7 +404,6 @@ async resendTwoFactorCode(req, res) {
             });
         }
         
-        // Получаем email пользователя
         const userResult = await pool.query(
             'SELECT email FROM users WHERE user_id = $1',
             [queryUserId]
@@ -438,7 +417,6 @@ async resendTwoFactorCode(req, res) {
         
         const userEmail = userResult.rows[0].email;
         
-        // Генерируем новый код
         const code = generateSixDigitCode();
         const expires = new Date(Date.now() + 10 * 60 * 1000);
         
@@ -449,7 +427,6 @@ async resendTwoFactorCode(req, res) {
             [code, expires, queryUserId]
         );
         
-        // Асинхронная отправка email
         setImmediate(async () => {
             try {
                 console.log('📧 Асинхронная отправка 2FA кода на:', userEmail);
@@ -469,7 +446,6 @@ async resendTwoFactorCode(req, res) {
             }
         });
         
-        // Сразу отправляем ответ
         res.json({
             message: 'Новый код отправлен на email',
             expiresIn: '10 минут'
@@ -559,123 +535,7 @@ async resendTwoFactorCode(req, res) {
         res.json({ message: 'Выход выполнен успешно' });
     }
     
-    // В authController.js добавляем метод:
-async deleteAccount(req, res) {
-    try {
-        const userId = req.user.userId;
-        const { password, deleteWishlist, deleteOrders } = req.body;
-        
-        if (!password) {
-            return res.status(400).json({ 
-                error: 'Пароль обязателен для подтверждения' 
-            });
-        }
-        
-        // Проверяем пароль
-        const userResult = await pool.query(
-            'SELECT password_hash FROM users WHERE user_id = $1',
-            [userId]
-        );
-        
-        if (userResult.rows.length === 0) {
-            return res.status(404).json({ error: 'Пользователь не найден' });
-        }
-        
-        const user = userResult.rows[0];
-        const validPassword = await bcrypt.compare(password, user.password_hash);
-        
-        if (!validPassword) {
-            return res.status(401).json({ error: 'Неверный пароль' });
-        }
-        
-        // Логируем начало удаления
-        await pool.query(
-            `INSERT INTO audit_log 
-             (user_id, audit_action, audit_table, table_id, new_data)
-             VALUES ($1, 'DELETE_ACCOUNT_START', 'users', $2, $3)`,
-            [userId, userId, JSON.stringify({ 
-                deleteWishlist, 
-                deleteOrders,
-                timestamp: new Date().toISOString()
-            })]
-        );
-        
-        // Удаляем избранное если выбрано
-        if (deleteWishlist) {
-            await pool.query(
-                'DELETE FROM wishlist WHERE user_id = $1',
-                [userId]
-            );
-        }
-        
-        // Обезличиваем заказы если выбрано
-        if (deleteOrders) {
-            // Обновляем заказы - удаляем связь с пользователем
-            await pool.query(
-                `UPDATE preorders 
-                 SET user_id = NULL, 
-                     phone = 'АНОНИМ',
-                     updated_at = NOW()
-                 WHERE user_id = $1`,
-                [userId]
-            );
-        }
-        
-        // Удаляем уведомления
-        await pool.query(
-            'DELETE FROM wishlist_notifications WHERE user_id = $1',
-            [userId]
-        );
-        
-        // Деактивируем пользователя (мягкое удаление)
-        await pool.query(
-            `UPDATE users 
-             SET is_active = false,
-                 email = CONCAT('deleted_', user_id, '_', email),
-                 phone = NULL,
-                 reset_token = NULL,
-                 reset_token_expires = NULL,
-                 two_factor_enabled = false,
-                 two_factor_code = NULL,
-                 two_factor_expires = NULL
-             WHERE user_id = $1`,
-            [userId]
-        );
-        
-        // Логируем завершение удаления
-        await pool.query(
-            `INSERT INTO audit_log 
-             (user_id, audit_action, audit_table, table_id, new_data)
-             VALUES ($1, 'DELETE_ACCOUNT_COMPLETE', 'users', $2, $3)`,
-            [userId, userId, JSON.stringify({ 
-                status: 'deactivated',
-                timestamp: new Date().toISOString()
-            })]
-        );
-        
-        res.json({
-            message: 'Аккаунт успешно удалён',
-            deleted: true,
-            timestamp: new Date().toISOString()
-        });
-        
-    } catch (error) {
-        console.error('Ошибка удаления аккаунта:', error);
-        
-        // Логируем ошибку удаления
-        await pool.query(
-            `INSERT INTO audit_log 
-             (user_id, audit_action, audit_table, table_id, new_data)
-             VALUES ($1, 'DELETE_ACCOUNT_ERROR', 'users', $2, $3)`,
-            [req.user?.userId, req.user?.userId, JSON.stringify({ 
-                error: error.message,
-                timestamp: new Date().toISOString()
-            })]
-        );
-        
-        res.status(500).json({ error: 'Ошибка при удалении аккаунта' });
-    }
-}
+
     async updateProfile(req, res) {
         try {
             const userId = req.user.userId;
@@ -872,9 +732,8 @@ async deleteAccount(req, res) {
             [resetToken, resetTokenExpires, user.user_id]
         );
         
-        const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+        const resetLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password/${resetToken}`;
         
-        // Асинхронная отправка email с помощью setImmediate
         setImmediate(async () => {
             try {
                 console.log('📧 Асинхронная отправка email для сброса пароля на:', user.email);
@@ -890,7 +749,6 @@ async deleteAccount(req, res) {
                 } else {
                     console.error('❌ Ошибка отправки email для сброса пароля');
                     
-                    // Логируем ошибку отправки в audit_log
                     await pool.query(
                         `INSERT INTO audit_log 
                          (user_id, audit_action, audit_table, table_id, new_data)
@@ -904,7 +762,6 @@ async deleteAccount(req, res) {
             } catch (emailError) {
                 console.error('❌ Ошибка асинхронной отправки email для сброса пароля:', emailError);
                 
-                // Логируем ошибку
                 try {
                     await pool.query(
                         `INSERT INTO audit_log 
@@ -921,10 +778,8 @@ async deleteAccount(req, res) {
             }
         });
         
-        // Сразу отправляем ответ пользователю
         res.json({ 
             message: 'Инструкции по сбросу пароля отправлены на email',
-            // Добавляем информацию для отладки (можно убрать в продакшене)
             debug: {
                 email: user.email,
                 token_generated: true,

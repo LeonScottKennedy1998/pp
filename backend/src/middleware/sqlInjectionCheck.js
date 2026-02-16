@@ -1,9 +1,7 @@
-// middleware/sqlInjectionCheck.js
 const sqlInjectionCheck = (req, res, next) => {
     const checkForSQLInjection = (value) => {
         if (typeof value !== 'string') return false;
         
-        // Простые паттерны SQL-инъекций
         const sqlPatterns = [
             /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER)\b)/i,
             /(\b(OR|AND)\s+['"]?\d+['"]?\s*[=<>])/i,
@@ -15,7 +13,6 @@ const sqlInjectionCheck = (req, res, next) => {
         return sqlPatterns.some(pattern => pattern.test(value));
     };
     
-    // Проверяем body
     if (req.body) {
         const bodyValues = Object.values(req.body).flat();
         for (const value of bodyValues) {
@@ -26,7 +23,6 @@ const sqlInjectionCheck = (req, res, next) => {
                     data: value
                 });
                 
-                // Логируем в аудит
                 req.app.locals.db.query(
                     `INSERT INTO audit_log 
                      (user_id, audit_action, audit_table, new_data)
@@ -47,7 +43,6 @@ const sqlInjectionCheck = (req, res, next) => {
         }
     }
     
-    // Проверяем query params
     if (req.query) {
         const queryValues = Object.values(req.query).flat();
         for (const value of queryValues) {

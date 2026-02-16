@@ -45,14 +45,15 @@ function App() {
     };
 
     const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
-    setCart([]);
-    setIsMenuOpen(false); // Закрываем меню
-    alert('Вы вышли из системы');
-    window.location.href = '/login';
-};
+    if (window.confirm('Вы уверены, что хотите выйти?')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        setCart([]);
+        setIsMenuOpen(false);
+        window.location.href = '/login';
+    }
+    };
 
 
     const addToCart = (product: any, showAlert: boolean = true) => {
@@ -140,7 +141,6 @@ function App() {
                             Магазин мерча
                         </Link>
                         
-                        {/* Кнопка меню для мобилок */}
                         <button 
                             className="menu-toggle"
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -185,7 +185,6 @@ function App() {
                                     Руководство
                                 </Link>
                                 
-                                {/* Разделитель для мобилок */}
                                 <div className="nav-divider"></div>
                                 
                                 <span className="user-greeting">

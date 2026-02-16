@@ -186,7 +186,7 @@ class WishlistNotificationService {
 
     async shouldSendNotification(userId, productId, notificationType) {
         try {
-            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            const today = new Date().toISOString().split('T')[0];
             
             const result = await pool.query(
                 `SELECT notification_id FROM wishlist_notifications 

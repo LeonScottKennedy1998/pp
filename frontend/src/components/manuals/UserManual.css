@@ -37,7 +37,6 @@
     font-size: 0.9rem;
 }
 
-/* Десктопные стили */
 .download-section {
     text-align: right;
     margin-bottom: 2rem;
@@ -78,7 +77,6 @@
     border: none;
 }
 
-/* Мобильные стили - только для мобилок */
 @media (max-width: 768px) {
     .user-manual-page {
         padding: 1rem;
@@ -99,14 +97,12 @@
         padding: 0.4rem 1.2rem;
     }
     
-    /* Скрываем десктопные элементы на мобилке */
     .download-section,
     .pdf-container {
         display: none;
     }
 }
 
-/* Мобильная секция с PDF */
 .mobile-pdf-section {
     padding: 2rem 1rem;
     text-align: center;
@@ -192,7 +188,6 @@
     margin-top: 1rem;
 }
 
-/* Другие руководства */
 .other-manuals {
     margin-top: 3rem;
     padding-top: 2rem;
@@ -255,7 +250,6 @@
     content: "↗";
 }
 
-/* Адаптивность для мобильных карточек */
 @media (max-width: 768px) {
     .other-manuals {
         margin-top: 2rem;
@@ -282,7 +276,6 @@
     }
 }
 
-/* Очень маленькие экраны */
 @media (max-width: 480px) {
     .user-manual-page h1 {
         font-size: 1.5rem;
@@ -345,7 +338,6 @@
     }
 }
 
-/* Для тач-устройств */
 @media (hover: none) and (pointer: coarse) {
     .mobile-download-btn,
     .mobile-open-btn {

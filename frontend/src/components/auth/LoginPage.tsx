@@ -1,4 +1,3 @@
-// src/components/auth/LoginPage.tsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_URLS, getAuthHeaders } from '../../config/api';
@@ -157,7 +156,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     };
 
     return (
-        <div className="page auth-page"> {/* Добавляем класс auth-page */}
+        <div className="page auth-page">
             <div className="auth-container">
                 <div className="auth-header">
                     <h1>Вход в систему</h1>

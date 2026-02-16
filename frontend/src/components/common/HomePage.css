@@ -51,7 +51,7 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
-    align-items: stretch; /* Важно: выравнивает высоту всех элементов */
+    align-items: stretch;
 }
 
 .feature-card {
@@ -62,8 +62,8 @@
     transition: transform 0.3s;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Занимает всю доступную высоту */
-    min-height: 220px; /* Минимальная высота для всех карточек */
+    height: 100%;
+    min-height: 220px;
 }
 
 .feature-card:hover {
@@ -75,7 +75,7 @@
     color: #2c3e50;
     font-size: 1.2rem;
     margin-bottom: 0.75rem;
-    min-height: 3rem; /* Фиксированная высота для заголовка */
+    min-height: 3rem;
     display: flex;
     align-items: center;
     
@@ -85,8 +85,8 @@
     color: #7f8c8d;
     margin: 0.5rem 0;
     line-height: 1.5;
-    flex-grow: 1; /* Занимает всё доступное пространство */
-    min-height: 4.5rem; /* Минимальная высота для описания (примерно 3 строки) */
+    flex-grow: 1;
+    min-height: 4.5rem;
 }
 
 .feature-btn {
@@ -99,7 +99,7 @@
     font-weight: 600;
     width: 100%;
     transition: background 0.3s;
-    margin-top: auto; /* Прижимает кнопку к низу карточки */
+    margin-top: auto;
 }
 
 .feature-btn:hover {
@@ -121,13 +121,13 @@
     display: flex;
     gap: 1rem;
     justify-content: center;
-    align-items: center; /* Важно для выравнивания по высоте */
+    align-items: center;
     margin-top: 3rem;
 }
 
 .cta-button,
 .secondary-button {
-    min-height: 54px; /* Одинаковая высота для обеих кнопок */
+    min-height: 54px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,13 +172,12 @@
     background: #2980b9;
     transform: translateY(-2px);
 }
-/* Стили для гостевых карточек */
 .guest-welcome .features {
     margin-top: 2rem;
 }
 
 .guest-welcome .feature-card {
-    min-height: 180px; /* Чуть меньше для гостевых карточек */
+    min-height: 180px;
 }
 
 .guest-welcome .feature-card h3 {
@@ -189,18 +188,15 @@
     min-height: 3.5rem;
 }
 
-/* Для карточек без кнопок */
 .guest-welcome .feature-card:has(button) {
-    min-height: 220px; /* Если есть кнопка - высота больше */
+    min-height: 220px;
 }
 
 .guest-welcome .feature-card:not(:has(button)) p {
-    min-height: 5.5rem; /* Больше места для текста если нет кнопки */
+    min-height: 5.5rem;
 }
 
-/* Медиа-запросы для главной страницы */
 
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .home-page {
         padding: 1.5rem;
@@ -216,7 +212,6 @@
     }
 }
 
-/* Планшеты (до 768px) */
 @media (max-width: 768px) {
     .home-page {
         padding: 1rem;
@@ -238,13 +233,13 @@
     .features {
         grid-template-columns: 1fr;
         gap: 1rem;
-        max-width: 500px; /* Ограничиваем ширину для центрирования */
+        max-width: 500px;
         margin-left: auto;
         margin-right: auto;
     }
     
     .feature-card {
-        width: 100%; /* Одинаковая ширина для всех карточек */
+        width: 100%;
         min-height: 180px;
         padding: 1.25rem;
     }
@@ -291,7 +286,6 @@
     }
 }
 
-/* Мобильные телефоны (до 480px) */
 @media (max-width: 480px) {
     .home-page {
         padding: 0.75rem;
@@ -343,7 +337,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .home-page h1 {
         font-size: 1.3rem;
@@ -367,7 +360,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .features {
         grid-template-columns: repeat(2, 1fr);
@@ -390,9 +382,7 @@
     }
 }
 
-/* Центрирование и улучшения для сенсорных экранов */
 @media (max-width: 768px) {
-    /* Центрирование всего контента */
     .user-welcome,
     .guest-welcome {
         display: flex;
@@ -400,19 +390,16 @@
         align-items: center;
     }
     
-    /* Выравнивание текста по центру для гостевых карточек */
     .guest-welcome .feature-card h3,
     .guest-welcome .feature-card p {
         text-align: center;
     }
     
-    /* Увеличенные зоны касания */
     button {
         min-height: 44px;
         -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     }
     
-    /* Улучшенные отступы для контента */
     .page {
         display: flex;
         flex-direction: column;
@@ -420,7 +407,6 @@
     }
 }
 
-/* Плавные анимации для мобильных */
 @media (max-width: 768px) {
     .features {
         animation: fadeInUp 0.5s ease;
@@ -438,7 +424,6 @@
     }
 }
 
-/* Фикс для iOS Safari */
 @supports (-webkit-touch-callout: none) {
     @media (max-width: 768px) {
         .feature-card {

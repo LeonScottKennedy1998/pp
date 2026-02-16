@@ -1724,9 +1724,7 @@
     flex: 1;
 }
 
-/* Медиа-запросы для панели товароведа */
 
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .merchandiser-dashboard {
         padding: 1rem;
@@ -1773,7 +1771,6 @@
         background: white;
     }
     
-    /* Закрепляем второй столбец (Название) */
     .merchandiser-table th:nth-child(2),
     .merchandiser-table td:nth-child(2) {
         position: sticky;
@@ -1784,7 +1781,6 @@
         min-width: 250px;
     }
     
-    /* Затемняем границу для закрепленного столбца */
     .merchandiser-table th:nth-child(2) {
         background: #2c3e50;
         color: white;
@@ -1795,7 +1791,6 @@
         background: white;
     }
     
-    /* Убираем двойные границы */
     .merchandiser-table th:first-child,
     .merchandiser-table td:first-child {
         border-right: 1px solid #e0e0e0;
@@ -1806,7 +1801,6 @@
     }
 }
 
-/* Планшеты (до 768px) */
 @media (max-width: 768px) {
     .merchandiser-dashboard {
         padding: 0.75rem;
@@ -1880,7 +1874,6 @@
         gap: 1rem;
     }
     
-    /* Адаптивные таблицы на мобильных с закрепленным столбцом */
     .products-table-container {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -1916,7 +1909,6 @@
         z-index: 5;
     }
     
-    /* Закрепляем второй столбец (Название) */
     .merchandiser-table th:nth-child(2),
     .merchandiser-table td:nth-child(2) {
         position: sticky;
@@ -1941,13 +1933,11 @@
         background: white;
     }
     
-    /* Убираем двойные границы */
     .merchandiser-table th:first-child,
     .merchandiser-table td:first-child {
         border-right: 1px solid #e0e0e0;
     }
     
-    /* Стили для ячейки с товаром */
     .product-cell {
         display: flex;
         align-items: center;
@@ -1985,7 +1975,6 @@
         font-size: 0.85rem;
     }
     
-    /* Компактные карточки правил */
     .rule-card {
         padding: 1rem;
     }
@@ -1999,7 +1988,6 @@
         flex: none;
     }
     
-    /* Модальные окна на мобильных */
     .modal {
         width: 95% !important;
         padding: 1.5rem !important;
@@ -2016,7 +2004,6 @@
         grid-template-columns: 1fr !important;
     }
     
-    /* Адаптивные формы */
     .modal-actions {
         flex-direction: column;
         gap: 0.75rem;
@@ -2026,7 +2013,6 @@
         width: 100%;
     }
     
-    /* Список заказов на мобильных */
     .orders-list-sidebar {
         max-height: 300px;
         overflow-y: auto;
@@ -2050,7 +2036,6 @@
         min-width: 100px;
     }
     
-    /* Добавляем подсказку о прокрутке */
     .products-table-container::after {
         content: '← →';
         position: sticky;
@@ -2066,7 +2051,6 @@
     }
 }
 
-/* Мобильные телефоны (до 480px) */
 @media (max-width: 480px) {
     .merchandiser-dashboard {
         padding: 0.5rem;
@@ -2090,7 +2074,6 @@
         text-align: center;
     }
     
-    /* Компактные таблицы */
     .merchandiser-table th,
     .merchandiser-table td {
         padding: 0.4rem;
@@ -2116,7 +2099,6 @@
         padding: 0.75rem;
     }
     
-    /* Карточки правил */
     .rule-info {
         grid-template-columns: 1fr;
         gap: 0.5rem;
@@ -2130,7 +2112,6 @@
         width: 100%;
     }
     
-    /* Список заказов */
     .orders-container {
         padding: 1rem;
     }
@@ -2160,7 +2141,6 @@
         font-size: 1.1rem;
     }
     
-    /* Модалки */
     .modal {
         padding: 1.25rem !important;
     }
@@ -2176,7 +2156,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .tab-btn {
         font-size: 0.85rem;
@@ -2218,7 +2197,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .orders-container {
         grid-template-columns: 1fr 1fr;
@@ -2244,9 +2222,7 @@
     }
 }
 
-/* Специальные стили для улучшения UX на мобильных */
 @media (max-width: 768px) {
-    /* Увеличенные зоны клика для сенсорных экранов */
     button,
     .tab-btn,
     .status-select,
@@ -2258,24 +2234,21 @@
     input,
     select,
     textarea {
-        font-size: 16px !important; /* Предотвращает зум на iOS */
+        font-size: 16px !important;
         min-height: 44px;
     }
     
-    /* Улучшение скроллбаров */
     .orders-list-sidebar::-webkit-scrollbar,
     .products-table-container::-webkit-scrollbar {
         width: 4px;
         height: 4px;
     }
     
-    /* Компактное отображение иконок */
     .tab-btn span:first-child {
         margin-right: 0.25rem;
         font-size: 1rem;
     }
     
-    /* Адаптивные отступы для форм */
     .form-group {
         margin-bottom: 1rem;
     }

@@ -53,7 +53,8 @@ const WishlistPage: React.FC<WishlistPageProps> = ({ addToCart }) => {
     }
 
     try {
-        console.log('📡 Отправка запроса на:', 'http://localhost:5001/api/wishlist');
+        const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+        console.log('📡 Отправка запроса на:', `${API_URL}/wishlist`);
         
         const response = await fetch(API_URLS.WISHLIST.BASE, {
             headers: getAuthHeaders()

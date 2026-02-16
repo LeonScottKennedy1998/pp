@@ -1,4 +1,3 @@
-// middleware/performanceMonitor.js
 const pool = require('../config/database');
 
 class PerformanceMonitor {
@@ -7,7 +6,6 @@ class PerformanceMonitor {
         this.startTimes = new Map();
     }
 
-    // Начать измерение
     startMeasurement(reqId, endpoint) {
         this.startTimes.set(reqId, {
             start: process.hrtime(),
@@ -15,13 +13,12 @@ class PerformanceMonitor {
         });
     }
 
-    // Завершить измерение и сохранить
     async endMeasurement(reqId, userId = null) {
         if (!this.startTimes.has(reqId)) return;
 
         const measurement = this.startTimes.get(reqId);
         const end = process.hrtime(measurement.start);
-        const durationMs = (end[0] * 1000) + (end[1] / 1000000); // в миллисекундах
+        const durationMs = (end[0] * 1000) + (end[1] / 1000000);
 
         try {
             await pool.query(
@@ -30,7 +27,7 @@ class PerformanceMonitor {
                  VALUES ($1, $2, $3, $4, $5)`,
                 ['response_time', durationMs, measurement.endpoint, userId, 
                  JSON.stringify({
-                     memory: process.memoryUsage().heapUsed / 1024 / 1024, // MB
+                     memory: process.memoryUsage().heapUsed / 1024 / 1024,
                      timestamp: new Date().toISOString()
                  })]
             );
@@ -42,7 +39,6 @@ class PerformanceMonitor {
         return durationMs;
     }
 
-    // Сохранить метрику использования памяти
     async saveMemoryUsage() {
         try {
             const memory = process.memoryUsage();
@@ -50,7 +46,7 @@ class PerformanceMonitor {
                 `INSERT INTO performance_metrics 
                  (metric_type, metric_value, additional_data)
                  VALUES ($1, $2, $3)`,
-                ['memory_usage', memory.heapUsed / 1024 / 1024, // MB
+                ['memory_usage', memory.heapUsed / 1024 / 1024,
                  JSON.stringify({
                      rss: memory.rss / 1024 / 1024,
                      heapTotal: memory.heapTotal / 1024 / 1024,
@@ -63,7 +59,6 @@ class PerformanceMonitor {
         }
     }
 
-    // Сохранить метрику времени отправки email
     async saveEmailSendTime(email, durationMs, success = true) {
         try {
             await pool.query(
@@ -82,7 +77,6 @@ class PerformanceMonitor {
         }
     }
 
-    // Сохранить количество запросов
     async saveRequestCount(endpoint) {
         try {
             await pool.query(
@@ -96,7 +90,6 @@ class PerformanceMonitor {
         }
     }
 
-    // Получить статистику за период
     async getStats(startDate, endDate) {
         try {
             const result = await pool.query(`
@@ -121,7 +114,6 @@ class PerformanceMonitor {
         }
     }
 
-    // Получить данные для графика
     async getChartData(metricType, hours = 24) {
         try {
             const result = await pool.query(`
@@ -143,7 +135,6 @@ class PerformanceMonitor {
         }
     }
 
-    // Получить топ медленных запросов
     async getSlowRequests(limit = 10, hours = 1) {
         try {
             const result = await pool.query(`
@@ -166,7 +157,6 @@ class PerformanceMonitor {
         }
     }
 
-    // Получить статистику по эмейлам
     async getEmailStats(hours = 24) {
         try {
             const result = await pool.query(`
@@ -190,21 +180,16 @@ class PerformanceMonitor {
     }
 }
 
-// Создаём middleware для Express
 const performanceMiddleware = (req, res, next) => {
     const monitor = new PerformanceMonitor();
     const requestId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
-    // Начинаем измерение
     monitor.startMeasurement(requestId, req.path);
     
-    // Сохраняем количество запросов
-    //monitor.saveRequestCount(req.path).catch(console.error);
+    monitor.saveRequestCount(req.path).catch(console.error);
     
-    // Перехватываем отправку ответа
     const originalSend = res.send;
     res.send = function(data) {
-        // Завершаем измерение при отправке ответа
         const userId = req.user ? req.user.userId : null;
         monitor.endMeasurement(requestId, userId).then(duration => {
             if (duration) {

@@ -188,7 +188,6 @@ const AuditLog = () => {
                 </button>
             </div>
 
-            {/* Статистика */}
             {stats && (
                 <div className="stats-grid">
                     <div className="stat-card">

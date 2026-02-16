@@ -14,7 +14,6 @@ router.get('/profile', authMiddleware, authController.getProfile);
 router.put('/profile', authMiddleware, authController.updateProfile);
 router.put('/change-password', authMiddleware, authController.changePassword);
 router.post('/logout', authMiddleware, authController.logout);
-router.post('/delete-account', authMiddleware, authController.deleteAccount);
 
 router.get('/two-factor/status', authMiddleware, authController.checkTwoFactorStatus);
 router.post('/two-factor/enable', authMiddleware, authController.enableTwoFactor);

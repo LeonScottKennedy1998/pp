@@ -1,4 +1,3 @@
-// controllers/performanceController.js
 const pool = require('../config/database');
 const { PerformanceMonitor } = require('../middleware/performanceMonitor');
 
@@ -7,33 +6,27 @@ class PerformanceController {
         try {
             const monitor = new PerformanceMonitor();
             
-            // Получаем статистику за последние 24 часа
             const endDate = new Date();
             const startDate = new Date(endDate - 24 * 60 * 60 * 1000);
             
             const stats = await monitor.getStats(startDate, endDate);
             
-            // Получаем данные для графиков
             const responseTimeData = await monitor.getChartData('response_time', 24);
             const memoryUsageData = await monitor.getChartData('memory_usage', 24);
             const requestCountData = await monitor.getChartData('request_count', 24);
             
-            // Получаем медленные запросы
             const slowRequests = await monitor.getSlowRequests(10);
             
-            // Получаем статистику по email
             const emailStats = await monitor.getEmailStats(24);
             
-            // Получаем системную информацию
             const systemInfo = {
                 nodeVersion: process.version,
                 platform: process.platform,
-                uptime: Math.floor(process.uptime()), // секунды
+                uptime: Math.floor(process.uptime()),
                 memory: process.memoryUsage(),
                 cpuUsage: process.cpuUsage()
             };
             
-            // Получаем количество активных пользователей за последний час
             const activeUsersResult = await pool.query(`
                 SELECT COUNT(DISTINCT user_id) as active_users
                 FROM performance_metrics
@@ -42,7 +35,6 @@ class PerformanceController {
                   AND user_id IS NOT NULL
             `);
             
-            // Получаем наиболее популярные endpoints
             const popularEndpoints = await pool.query(`
                 SELECT 
                     endpoint,
@@ -80,16 +72,13 @@ class PerformanceController {
         try {
             const monitor = new PerformanceMonitor();
             
-            // Текущие метрики за последние 5 минут
             const endDate = new Date();
             const startDate = new Date(endDate - 5 * 60 * 1000);
             
             const stats = await monitor.getStats(startDate, endDate);
             
-            // Текущее использование памяти
             const memory = process.memoryUsage();
             
-            // Количество активных подключений к БД (примерно)
             const dbConnections = await pool.query(`
                 SELECT count(*) as connections 
                 FROM pg_stat_activity 
@@ -99,9 +88,9 @@ class PerformanceController {
             res.json({
                 timestamp: new Date().toISOString(),
                 memory: {
-                    heapUsed: Math.round(memory.heapUsed / 1024 / 1024), // MB
-                    heapTotal: Math.round(memory.heapTotal / 1024 / 1024), // MB
-                    rss: Math.round(memory.rss / 1024 / 1024) // MB
+                    heapUsed: Math.round(memory.heapUsed / 1024 / 1024),
+                    heapTotal: Math.round(memory.heapTotal / 1024 / 1024),
+                    rss: Math.round(memory.rss / 1024 / 1024)
                 },
                 stats: stats,
                 database: {
@@ -121,7 +110,6 @@ class PerformanceController {
     
     async clearOldMetrics(req, res) {
         try {
-            // Удаляем метрики старше 30 дней
             const result = await pool.query(`
                 DELETE FROM performance_metrics 
                 WHERE created_at < NOW() - INTERVAL '30 days'

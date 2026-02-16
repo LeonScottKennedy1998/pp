@@ -1,4 +1,3 @@
-/* src/components/common/ProductModal.css */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -157,38 +156,38 @@
 
 .modal-price-container {
     display: flex;
-    flex-direction: row; /* ← Меняем column на row */
+    flex-direction: row;
     align-items: center;
-    gap: 1rem; /* Добавляем отступ между ценами */
-    flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+    gap: 1rem; 
+    flex-wrap: nowrap;
 }
 
 .discount-price-block {
     display: flex;
-    align-items: baseline; /* Выравниваем по базовой линии */
-    gap: 0.75rem; /* Уменьшаем отступ между элементами */
-    white-space: nowrap; /* Запрещаем перенос текста */
+    align-items: baseline;
+    gap: 0.75rem;
+    white-space: nowrap;
 }
 
 .modal-original-price {
     text-decoration: line-through;
     color: #95a5a6;
     font-size: 1.1rem;
-    white-space: nowrap; /* Запрещаем перенос текста */
+    white-space: nowrap;
 }
 
 .modal-final-price {
     color: #27ae60;
     font-size: 1.5rem;
     font-weight: bold;
-    white-space: nowrap; /* Запрещаем перенос текста */
+    white-space: nowrap;
 }
 
 .modal-price-normal {
     color: #2c3e50;
     font-size: 1.5rem;
     font-weight: bold;
-    white-space: nowrap; /* Запрещаем перенос текста */
+    white-space: nowrap;
 }
 
 .modal-stock {
@@ -260,9 +259,7 @@
     box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
 }
 
-/* Медиа-запросы для модального окна товара */
 
-/* Планшеты (до 1024px) */
 @media (max-width: 1024px) {
     .modal-overlay {
         padding: 15px;
@@ -287,7 +284,6 @@
     }
 }
 
-/* Планшеты и мобильные (до 768px) */
 @media (max-width: 768px) {
     .modal-overlay {
         padding: 10px;
@@ -369,7 +365,6 @@
         font-size: 0.95rem;
     }
     
-    /* Исправляем проблему с отображением цен */
     .modal-price-container {
         flex-direction: row;
         align-items: center;
@@ -412,7 +407,6 @@
     }
 }
 
-/* Мобильные телефоны (до 480px) */
 @media (max-width: 480px) {
     .modal-overlay {
         padding: 5px;
@@ -488,7 +482,6 @@
     }
 }
 
-/* Очень маленькие экраны (до 360px) */
 @media (max-width: 360px) {
     .product-modal-image {
         min-height: 200px;
@@ -519,7 +512,6 @@
     }
 }
 
-/* Для горизонтальной ориентации на мобильных */
 @media (max-width: 768px) and (orientation: landscape) {
     .modal-overlay {
         align-items: center;
@@ -560,7 +552,6 @@
     }
 }
 
-/* Улучшения для сенсорных экранов */
 @media (max-width: 768px) {
     .modal-close-btn,
     .modal-add-to-cart-btn,
@@ -570,7 +561,6 @@
         cursor: pointer;
     }
     
-    /* Увеличенная зона клика для закрытия */
     .modal-overlay::before {
         content: '';
         position: absolute;
@@ -582,7 +572,6 @@
     }
 }
 
-/* Предотвращение зума на iOS */
 @media screen and (max-width: 768px) {
     .modal-content {
         font-size: 16px;
@@ -596,7 +585,6 @@
     }
 }
 
-/* Плавная прокрутка внутри модалки */
 @media (max-width: 768px) {
     .product-modal-info {
         overflow-y: auto;
@@ -604,7 +592,6 @@
     }
 }
 
-/* Фикс для iOS Safari */
 @supports (-webkit-touch-callout: none) {
     @media (max-width: 768px) {
         .modal-content {

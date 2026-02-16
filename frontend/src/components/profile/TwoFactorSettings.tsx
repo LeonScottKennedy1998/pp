@@ -1,4 +1,3 @@
-// src/components/profile/TwoFactorSettings.tsx
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { API_URLS, getAuthHeaders } from '../../config/api';

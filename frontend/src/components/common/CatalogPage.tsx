@@ -1,4 +1,3 @@
-// src/pages/CatalogPage.tsx
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductModal from './ProductModal';

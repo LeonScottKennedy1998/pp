@@ -1,4 +1,3 @@
-/* pages/BackupManagement/BackupManagement.css */
 .backup-management {
     padding: 24px;
     max-width: 1200px;
@@ -11,7 +10,6 @@
     font-size: 28px;
 }
 
-/* Статистика */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -48,7 +46,6 @@
     line-height: 1.2;
 }
 
-/* Карточки */
 .backup-card {
     background: white;
     border-radius: 12px;
@@ -69,7 +66,6 @@
     line-height: 1.5;
 }
 
-/* Кнопка создания */
 .create-button {
     background: linear-gradient(135deg, #3498db, #2980b9);
     color: white;
@@ -95,7 +91,6 @@
     box-shadow: none;
 }
 
-/* Список бэкапов */
 .backup-list {
     display: flex;
     flex-direction: column;
@@ -201,7 +196,6 @@
     cursor: not-allowed;
 }
 
-/* Пустое состояние */
 .empty-message {
     text-align: center;
     color: #95a5a6;
@@ -209,7 +203,6 @@
     font-size: 16px;
 }
 
-/* Информационная карточка */
 .info-card {
     background: #e8f4fd;
     border-radius: 12px;
@@ -243,7 +236,6 @@
     font-size: 13px;
 }
 
-/* Загрузка */
 .loading {
     text-align: center;
     padding: 60px;
@@ -265,7 +257,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .backup-management {
         padding: 16px;

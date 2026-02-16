@@ -23,7 +23,6 @@ const UserManual = () => {
     
     const currentManual = manuals[role as keyof typeof manuals] || '/manuals/client_manual.pdf';
 
-    // Определяем мобильное устройство
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     return (
@@ -40,7 +39,6 @@ const UserManual = () => {
                 </div>
                 
                 {isMobile ? (
-                    // Мобильная версия - только скачивание
                     <div className="mobile-pdf-section">
                         <div className="mobile-pdf-icon">📄</div>
                         <h3>Руководство пользователя для {role}</h3>
@@ -72,7 +70,6 @@ const UserManual = () => {
                         </p>
                     </div>
                 ) : (
-                    // Десктопная версия - PDF вьювер
                     <>
                         <div className="download-section">
                             <a 

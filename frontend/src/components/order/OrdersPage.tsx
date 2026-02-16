@@ -1,4 +1,3 @@
-// components/orders/OrdersPage.tsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Order } from '../../types/product';

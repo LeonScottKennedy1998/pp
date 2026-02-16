@@ -140,7 +140,6 @@ const OrderManagement = () => {
             </div>
 
             <div className="orders-container">
-                {/* Список заказов */}
                 <div className="orders-list-sidebar">
                     <h3>Все заказы ({filteredOrders.length})</h3>
                     
@@ -178,7 +177,6 @@ const OrderManagement = () => {
                     )}
                 </div>
 
-                {/* Детали заказа */}
                 <div className="order-details-panel">
                     {selectedOrder ? (
                         <>
